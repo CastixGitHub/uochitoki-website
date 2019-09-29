@@ -1,0 +1,121 @@
+html, body {
+    height: 100%;
+}
+
+#app {
+    height: 100%;
+}
+
+.card {
+    background: #fff;
+    border: solid 3px #000;
+    transition: 0.3s;
+    margin: .5rem;
+    padding: .1rem 1.5rem;
+    max-height: 60vh;
+    overflow-y: auto;
+    word-break: break-word;
+}
+.card a {
+    color: #000;
+}
+.entrytitle {
+    display: inline;
+}
+.entrydate {
+    color: #666;
+    font-size: .8em;
+}
+.error {
+    color: #f00;
+}
+.card pre {
+    white-space: pre-line;
+}
+
+.card .instagram-content {
+    width: 100%;
+    cursor: zoom-in;
+}
+
+.card .lds-svg {
+    width: 128px;
+    margin: auto;
+}
+.card .loading_message {
+    font-size: .8em;
+    padding: 10%;
+    display: inline-block;
+}
+
+#card-Audio {
+    height: 60vh;
+}
+#card-Audio iframe {
+    height: 85%;
+}
+
+#card-Radio audio {
+    width: 100%;
+    background-color: #000;
+}
+
+
+.disc_thumbnail {
+    border: 1px solid #666;
+    float: left;
+    margin-right: 1em;
+}
+.disc_title > h4 {
+    margin-bottom: 0;
+}
+.disc_title > h5 {
+    margin: 0;
+    color: #666;
+}
+.disc_title > h5 > a {
+    color: #666;
+}
+.disc_description, .disc_subdescription {
+    font-size: .8em;
+}
+.disc_line {
+    float:left; border-top:1px dotted #666; width:100%; margin-top:5px; padding-bottom:5px;
+}
+
+.locusta_last_update {
+    font-size: .8em;
+}
+.locusta_event {
+    display: block;
+    border-bottom: dotted 2px #666;
+    padding: .5em;
+}
+.locusta_date {
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-right: 1em;
+}
+.locusta_province {
+    font-weight: 600;
+}
+
+.youtube-thumbnail {
+    width: 100%;
+}
+
+.google_title {
+    margin-bottom: 0;
+}
+.google_source {
+    color: #080;
+    font-size: .8em;
+}
+
+.sources img {
+    height: 32px;
+    vertical-align: middle;
+}
+.sources span {
+    padding-left: 1em;
+}
