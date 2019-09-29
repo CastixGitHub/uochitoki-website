@@ -371,7 +371,7 @@
 		var fetched = '<div class="google_results">';
 		[].forEach.call(a_list, function(a) {
 		    console.log(a);
-		    if (a.href.startsWith('http') && !a.href.startsWith('https://www.google') && !a.href.startsWith('/search')) {
+		    if (a.href.startsWith('http') && !a.href.startsWith('https://www.google') && !a.href.includes('/search')) {
 			let entry = a.children[0].children[0].children;
 			if (entry.length == 1) {
 			    var source = a.children[0].children[1].children[0].textContent;
