@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/modals.css">
     <link rel="stylesheet" href="css/main.css">
-    <script src="js/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!--<script src="js/vue.min.js"></script>-->
     <script src="js/rss-parser.min.js"></script>
     <script src="js/vue-resource.min.js"></script>
     <script src="js/jquery-3.4.1.min.js"></script>
@@ -124,18 +125,18 @@
 	</box>
 	<box v-bind:box="boxes['Radio']">
 	  <div class="sources">
-	    <div><a href="http://radiomerdamalata.scienceontheweb.net/" target="_blank">
+	    <!--<div><a href="http://radiomerdamalata.scienceontheweb.net/" target="_blank">
 	      <img src="img/logos/rmm.png"/><span>Merda Parthner Homepage</span>
-	    </a></div>
+	    </a></div>-->
 	    <div><a href="http://s.streampunk.cc/merdamalata.ogg" target="_blank">
 	      <img src="img/logos/rmm.png"/><span>Stream OGG (preferred)</span>
 	    </a></div>
 	    <div><a href="http://s.streampunk.cc/merdamalata.mp3" target="_blank">
 	      <img src="img/logos/rmm.png"/><span>Stream MP3 (for iOS\Apple device)</span>
 	    </a></div>
-	    <div><a href="https://minnit.chat/radiomerdamalata" target="_blank">
+	    <!--<div><a href="https://minnit.chat/radiomerdamalata" target="_blank">
 	      <img src="img/logos/rmm.png"/><span>Chat (to interact with other sick people)</span>
-	    </a></div>
+	    </a></div>-->
 	  </div>
 	  <hr>
 	  <p>Se lo stream si blocca, ricarica la pagina</p>
@@ -143,6 +144,9 @@
 	    <source src="http://s.streampunk.cc/merdamalata.ogg" type="audio/ogg">
 	    <source src="http://s.streampunk.cc/merdamalata.mp3" type="audio/mpeg">
 	  </audio>
+	</box>
+	<box v-bind:box="boxes['Mailchimp']">
+	  <Mailchimp v-bind:action="'https://fiscerprais.us9.list-manage.com/subscribe/post?u=8f15b5f9b89c94257635460ed&id=a8cd35678e'"></Mailchimp>
 	</box>
 	<box v-bind:box="boxes['Contatti']">
 	  <div class="contatti">
@@ -275,6 +279,18 @@
       <hr/>
     </div>
   </script>
+  <script type="text/x-template" id="mailchimp-template">
+    <div class="mailchimp">
+    <form v-if="!successMessage" v-on:submit.prevent="subscribe">
+      <p>Aggiungi il tuo <b>nome</b> e il tuo <b>indirizzo e-mail</b> alla mia lista contatti per ricevere in maniera aperiodica mail <b>non direttamente rivolte a te</b>:</p>
+      <input v-model="email" name="EMAIL" type="email" placeholder="Email" id="email" />
+      <input v-model="lname" name="LNAME" type="text" placeholder="Nome" id="lname" />
+      <input type="submit" value="Iscriviti"/>
+    </form>
+    <p v-if="errorMessage && !successMessage" transition="fade" class="error">{{ errorMessage }}</p>
+    <p v-if="successMessage" transition="fade">{{ successMessage }}</p>
+    </div>
+  </script>
   <script>
     var ModalItem = Vue.component('modal-item', {
 	props: ['modal'],
@@ -360,9 +376,50 @@
 	}
     });
 
+    // https://gist.github.com/chrsgrffth/fa69fa9874871c8b52afc01d1a881e6d
+    var Mailchimp = Vue.component('mailchimp', {
+	props: {
+	    action: {
+		required: true,
+		type: String
+	    }
+	},
+	template: '#mailchimp-template',
+	data: function() { return {
+	    email: '',
+	    lname: '',
+	    response: {},
+	    errorMessage: null,
+	    successMessage: null
+	}},
+	methods: {
+	    subscribe: function (e) {
+		var self = this;
+		var params = $(e.currentTarget).serialize();
+		$.ajax({
+		    type: 'POST',
+		    url: this.action.replace('/post?', '/post-json?').concat('&c=?'),
+		    data: params,
+		    dataType: 'jsonp',
+		    headers: {'Access-Control-Allow-Origin':'*'},
+		}).done(function (res) {
+		    console.log(res);
+		    if (res.result == 'success') {
+			self.successMessage = res.msg;
+		    } else {
+			self.errorMessage = res.msg;
+		    }
+		}).fail(function (res) {
+		    console.log(res);
+		    self.errorMessage = res.msg;
+		});
+	    }
+	}
+    });
+
     var app = new Vue({
 	el: '#app',
-	components: { ModalItem, ModalLabel, Box, Disc, RssFeed, Scraper },
+	components: { ModalItem, ModalLabel, Box, Disc, RssFeed, Scraper, Mailchimp },
 	methods: {
 	    googleHandler: function (entries) {
 		console.log(entries);
@@ -506,6 +563,9 @@
 		},
 		'Radio': {
 		    _id: 7, id: 'Radio', title: 'Radio Merda Malata'
+		},
+		'Mailchimp': {
+		    _id: 8, id: 'Mailchimp', title: 'Mailing List'
 		}
 	    },
 	    discs: [
