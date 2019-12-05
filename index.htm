@@ -98,7 +98,7 @@
 	    </div>
 	  </div>
 	  <hr>
-	  <Scraper v-bind:url="'http://www.locusta.net/tour_detail.php?id=109&lang=i&band=Uochi%20Toki'" v-bind:handler="locusta_handler"></Scraper>
+	  <Scraper v-bind:url="'http://www.locusta.net/tour_detail.php?id=109&lang=i&band=Uochi%20Toki'" v-bind:handler="locusta_handler" v-bind:nexttick_custom="locusta_scroll"></Scraper>
 	</box>
 	<box v-bind:box="boxes['Video']">
 	  <div class="sources">
@@ -352,7 +352,8 @@
     var Scraper = Vue.component('scraper', {
 	props: {
 	    url: String,
-	    handler: Function
+	    handler: Function,
+	    nexttick_custom: Function
 	},
 	template: '#scraper-template',
 	data: function() { return {
@@ -362,6 +363,14 @@
 	}},
 	created: function() {
 	    this.fetch()
+	},
+	updated: function () {
+	    var self = this;
+	    if (self.nexttick_custom !== undefined) {
+		this.$nextTick(function () {
+		    self.nexttick_custom();
+		});
+	    }
 	},
 	methods: {
 	    fetch: function () {
@@ -482,6 +491,7 @@
 		var $doc = new DOMParser().parseFromString(entries.bodyText, "text/html");
 		var $trs = $('tr', $doc);
 		var fetched = '<div class="locusta_last_update">' + $('.minitxt', $doc).text() + '</div>';
+		var new_year = false;
 		[].forEach.call($trs, function (tr, row_index) {
 		    if (row_index === 0) {
 			return;
@@ -489,8 +499,29 @@
 		    [].forEach.call(tr.children, function(td, index) {
 			switch (index) {
 			case 0:
+			    var day = parseInt(td.innerText.split('.')[0]);
+			    var month = parseInt(td.innerText.split('.')[1]);
+			    var current_date = new Date();
+			    var current_month = current_date.getMonth() + 1;
+			    var occurred = '';
+			    if (current_month > month) {
+				occurred = ' occurred_date';
+			    }
+			    if (current_month == month) {
+				var current_day = String(new Date().getDate()).padStart(2, '0');
+				if (current_day > day) {
+				    occurred = ' occurred_date';
+				}
+			    }
+			    if (occurred == '') {
+				new_year = true;
+			    }
+			    if (new_year) {
+				occurred = '';
+			    }
 			    fetched += '<div class="locusta_event">';
-			    fetched += '<span class="locusta_date">' + td.innerText + '</span>';
+			    fetched += '<span class="locusta_date' + occurred + '" id="locusta_date_' + row_index + '">'
+				+ td.innerText + '</span>';
 			    break;
 			case 1:
 			    fetched += '<span class="locusta_city">' + td.innerText + '</span>';
@@ -502,13 +533,24 @@
 			    fetched += '<span>' + td.innerText + '</span>';
 			    break;
 			case 4:
-			    fetched += '</div>'
+			    fetched += '</div>';
+			    break;
 			default:
 			    ;
 			};
 		    });
 		});
-		return '<div class="locusta_events">' + fetched + '</div>'
+		return '<div class="locusta_events">' + fetched + "</div>";
+	    },
+	    locusta_scroll: function () {
+		if (document.querySelectorAll('.locusta_date:not(.occurred_date)')[0] !== undefined) {
+		    var offset = document.querySelectorAll('.locusta_date:not(.occurred_date)')[0].parentNode.offsetTop;
+		    var parent = document.querySelector('#card-Concerti');
+		    var innerParentOffset = document.querySelector('.locusta_events').parentNode.offsetTop;
+		    offset -= innerParentOffset;
+		    parent.scrollTop = offset;
+		}
+
 	    }
 	},
 	mounted: function () {

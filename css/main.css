@@ -96,6 +96,9 @@ html, body {
     font-weight: 600;
     margin-right: 1em;
 }
+.occurred_date {
+    color: gray;
+}
 .locusta_province {
     font-weight: 600;
 }
