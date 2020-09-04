@@ -61,7 +61,8 @@
 	<box v-bind:box="boxes['Diretta']">
 	  <a target="_blank" href="https://www.google.com/search?q=Uochi+Toki&tbm=nws&hl=it">Ricerca Google News</a>
 	  <hr>
-	  <Scraper v-bind:url="'https://www.google.com/search?q=Uochi+Toki&tbm=nws'" v-bind:handler="googleHandler"></Scraper>
+	  <RssFeed v-bind:feedUrl="'https://news.google.com/rss/search?q=uochi+toki&hl=it&gl=IT&ceid=IT:it'" v-bind:handleEntry="googleHandler">	
+	  </RssFeed>
 	</box>
 	<box v-bind:box="boxes['Disegni']">
 	  <div class="sources">
@@ -77,7 +78,7 @@
 	    </div>
 	  </div>
 	  <hr>
-	  <RssFeed v-bind:feedUrl="'https://rsshub666.herokuapp.com/instagram/user/lapisniger'" v-bind:handleEntry="instagramHandler" v-bind:loading_message="'cercando disperatamente di disegnarli da instagram'"></RssFeed>
+	  <RssFeed v-bind:feedUrl="'https://rsshub.app/picuki/profile/lapisniger'" v-bind:handleEntry="instagramHandler" v-bind:loading_message="'cercando disperatamente di disegnarli da instagram'"></RssFeed>
 	  <RssFeed v-bind:feedUrl="'https://www.flickr.com/services/feeds/photos_public.gne?id=28033474@N06&lang=it-it&format=rss_200'" v-bind:handleEntry="flickrHandler" v-bind:loading_message="'altri disegni da flickr'"></RssFeed>
 	</box>
 	<box v-bind:box="boxes['Estratti Audio']">
@@ -430,7 +431,13 @@
 	el: '#app',
 	components: { ModalItem, ModalLabel, Box, Disc, RssFeed, Scraper, Mailchimp },
 	methods: {
-	    googleHandler: function (entries) {
+		googleHandler: function(entry){
+			//console.log(entry);
+			delete entry.content;
+			//console.log(entry);
+			return entry;
+		},
+	    /*googleHandler: function (entries) {
 		console.log(entries);
 		var $doc = new DOMParser().parseFromString(entries.body, "text/html");
 		var a_list = $('a', $doc.querySelector('body div #center_col'));
@@ -459,21 +466,21 @@
 		    }
 		})
 		return fetched;
-	    },
+	    },*/
 	    flickrHandler: function (entry) {
 		entry.content = entry.content.replace('<p><a href=\"https://www.flickr.com/people/lapisniger/\">LapisNiger x y z t</a> ha postato una foto:</p>', '');
 		return entry;
 	    },
 	    instagramHandler: function (entry) {
 		entry.content = entry.content.replace(/<img src="https:\/\/scontent/g, '<img class="instagram-content" onclick="window.open(this.src)" src="https://scontent').replace(/\[组图\/Carousel\]/g, '').replace(/\[视频\/Video\]/g, '');
-		entry.title = entry.title.replace(/\[组图\/Carousel\]/g, '').replace(/\[视频\/Video\]/g, '');
+		entry.title = entry.title.replace(/\[组图\/Carousel\]/g, '').replace(/\[视频\/Video\]/g, '');/*
 		if (entry.title.endsWith('...')) {
 		    let last_space_index = entry.title.lastIndexOf(' ')
 		    entry.title = entry.title.substring(0, last_space_index) + '...';
 		    entry.content = entry.content.substring(last_space_index);
 		} else {
 		    entry.content = entry.content.substring(entry.title.length);
-		}
+		}*/
 		return entry;
 	    },
 	    youtubeHandler: function (entry) {
