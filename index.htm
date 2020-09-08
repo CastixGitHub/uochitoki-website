@@ -61,7 +61,8 @@
 	<box v-bind:box="boxes['Diretta']">
 	  <a target="_blank" href="https://www.google.com/search?q=Uochi+Toki&tbm=nws&hl=it">Ricerca Google News</a>
 	  <hr>
-	  <Scraper v-bind:url="'https://www.google.com/search?q=Uochi+Toki&tbm=nws'" v-bind:handler="googleHandler"></Scraper>
+	  <RssFeed v-bind:feedUrl="'https://news.google.com/rss/search?q=uochi+toki&hl=it&gl=IT&ceid=IT:it'" v-bind:handleEntry="googleHandler">	
+	  </RssFeed>
 	</box>
 	<box v-bind:box="boxes['Disegni']">
 	  <div class="sources">
@@ -77,7 +78,7 @@
 	    </div>
 	  </div>
 	  <hr>
-	  <RssFeed v-bind:feedUrl="'https://rsshub666.herokuapp.com/instagram/user/lapisniger'" v-bind:handleEntry="instagramHandler" v-bind:loading_message="'cercando disperatamente di disegnarli da instagram'"></RssFeed>
+	  <RssFeed v-bind:feedUrl="'http://rsshub666.herokuapp.com/picuki/profile/lapisniger'" v-bind:handleEntry="instagramHandler" v-bind:loading_message="'cercando disperatamente di disegnarli da instagram'"></RssFeed>
 	  <RssFeed v-bind:feedUrl="'https://www.flickr.com/services/feeds/photos_public.gne?id=28033474@N06&lang=it-it&format=rss_200'" v-bind:handleEntry="flickrHandler" v-bind:loading_message="'altri disegni da flickr'"></RssFeed>
 	</box>
 	<box v-bind:box="boxes['Estratti Audio']">
@@ -430,49 +431,24 @@
 	el: '#app',
 	components: { ModalItem, ModalLabel, Box, Disc, RssFeed, Scraper, Mailchimp },
 	methods: {
-	    googleHandler: function (entries) {
-		console.log(entries);
-		var $doc = new DOMParser().parseFromString(entries.body, "text/html");
-		var a_list = $('a', $doc.querySelector('body div #center_col'));
-		var fetched = '<div class="google_results">';
-		[].forEach.call(a_list, function(a) {
-		    console.log(a);
-		    if (a.href.startsWith('http') && !a.href.startsWith('https://www.google') && !a.href.includes('/search')) {
-			let entry = a.children[0].children[0].children;
-			if (entry.length == 1) {
-			    var source = a.children[0].children[1].children[0].textContent;
-			    var title = a.children[0].children[1].children[1].textContent
-			    var description = a.children[0].children[1].children[2].textContent;
-			}
-			else {
-			    var source = entry[0].textContent;
-			    var title = entry[1].innerText;
-			    var description = entry[2].innerHTML;
-			}
-			fetched += (
-			    '<a href="' + a.href + '" target="_blank">'
-				+ '<h3 class="google_title">' + title + '</h3>'
-				+ '</a>'
-				+ '<div class="google_source">' + source + '</div>'
-				+ '<div class="google_description">' + description + '</div>'
-			);
-		    }
-		})
-		return fetched;
+	    googleHandler: function(entry){
+		delete entry.content;
+		return entry;
 	    },
 	    flickrHandler: function (entry) {
 		entry.content = entry.content.replace('<p><a href=\"https://www.flickr.com/people/lapisniger/\">LapisNiger x y z t</a> ha postato una foto:</p>', '');
 		return entry;
 	    },
 	    instagramHandler: function (entry) {
-		entry.content = entry.content.replace(/<img src="https:\/\/scontent/g, '<img class="instagram-content" onclick="window.open(this.src)" src="https://scontent').replace(/\[组图\/Carousel\]/g, '').replace(/\[视频\/Video\]/g, '');
-		entry.title = entry.title.replace(/\[组图\/Carousel\]/g, '').replace(/\[视频\/Video\]/g, '');
+		entry.content = entry.content.replace(/<img src="https:\/\/scontent/g, '<img class="instagram-content" onclick="window.open(this.src)" src="https://scontent');
+		let image_length = entry.content.indexOf(">");
+		let image = entry.content.substring(0, image_length + 1);
 		if (entry.title.endsWith('...')) {
 		    let last_space_index = entry.title.lastIndexOf(' ')
-		    entry.title = entry.title.substring(0, last_space_index) + '...';
-		    entry.content = entry.content.substring(last_space_index);
+		    entry.title = entry.title.substring(0, last_space_index);
+		    entry.content = entry.content.substring(image_length + 4 + last_space_index) + image;
 		} else {
-		    entry.content = entry.content.substring(entry.title.length);
+		    entry.content = image;
 		}
 		return entry;
 	    },
@@ -550,7 +526,6 @@
 		    offset -= innerParentOffset;
 		    parent.scrollTop = offset;
 		}
-
 	    }
 	},
 	mounted: function () {
