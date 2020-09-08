@@ -78,7 +78,7 @@
 	    </div>
 	  </div>
 	  <hr>
-	  <RssFeed v-bind:feedUrl="'https://rsshub.app/picuki/profile/lapisniger'" v-bind:handleEntry="instagramHandler" v-bind:loading_message="'cercando disperatamente di disegnarli da instagram'"></RssFeed>
+	  <RssFeed v-bind:feedUrl="'http://rsshub666.herokuapp.com/picuki/profile/lapisniger'" v-bind:handleEntry="instagramHandler" v-bind:loading_message="'cercando disperatamente di disegnarli da instagram'"></RssFeed>
 	  <RssFeed v-bind:feedUrl="'https://www.flickr.com/services/feeds/photos_public.gne?id=28033474@N06&lang=it-it&format=rss_200'" v-bind:handleEntry="flickrHandler" v-bind:loading_message="'altri disegni da flickr'"></RssFeed>
 	</box>
 	<box v-bind:box="boxes['Estratti Audio']">
@@ -468,95 +468,96 @@
 		return fetched;
 	    },*/
 	    flickrHandler: function (entry) {
-		entry.content = entry.content.replace('<p><a href=\"https://www.flickr.com/people/lapisniger/\">LapisNiger x y z t</a> ha postato una foto:</p>', '');
-		return entry;
+			entry.content = entry.content.replace('<p><a href=\"https://www.flickr.com/people/lapisniger/\">LapisNiger x y z t</a> ha postato una foto:</p>', '');
+			return entry;
 	    },
 	    instagramHandler: function (entry) {
-		entry.content = entry.content.replace(/<img src="https:\/\/scontent/g, '<img class="instagram-content" onclick="window.open(this.src)" src="https://scontent').replace(/\[组图\/Carousel\]/g, '').replace(/\[视频\/Video\]/g, '');
-		entry.title = entry.title.replace(/\[组图\/Carousel\]/g, '').replace(/\[视频\/Video\]/g, '');/*
-		if (entry.title.endsWith('...')) {
-		    let last_space_index = entry.title.lastIndexOf(' ')
-		    entry.title = entry.title.substring(0, last_space_index) + '...';
-		    entry.content = entry.content.substring(last_space_index);
-		} else {
-		    entry.content = entry.content.substring(entry.title.length);
-		}*/
-		return entry;
+			entry.content = entry.content.replace(/<img src="https:\/\/scontent/g, '<img class="instagram-content" onclick="window.open(this.src)" src="https://scontent');
+		    let image_length = entry.content.indexOf(">");
+		    let image = entry.content.substring(0, image_length + 1);
+			if (entry.title.endsWith('...')) {
+			    let last_space_index = entry.title.lastIndexOf(' ')
+			    entry.title = entry.title.substring(0, last_space_index);
+			    entry.content = entry.content.substring(image_length + 4 + last_space_index) + image;
+			}else{
+				entry.content = image;
+			}
+			return entry;
 	    },
 	    youtubeHandler: function (entry) {
-		entry.content = entry.content.replace(/<img src=/g, '<a href="' + entry.link + '" target="_blank"><img class="youtube-thumbnail" src=').replace(/<\/img>/g, '</img></a>');
-		return entry;
+			entry.content = entry.content.replace(/<img src=/g, '<a href="' + entry.link + '" target="_blank"><img class="youtube-thumbnail" src=').replace(/<\/img>/g, '</img></a>');
+			return entry;
 	    },
 	    soundcloudHandler: function (entry) {
-		return entry;
+			return entry;
 	    },
 	    biografia_handler: function (entries) {
-		entries = JSON.parse(entries.bodyText).query.pages[1443708].extract;
-		return '<pre>' + entries + '</pre>';
+			entries = JSON.parse(entries.bodyText).query.pages[1443708].extract;
+			return '<pre>' + entries + '</pre>';
 	    },
 	    locusta_handler: function (entries) {
-		var $doc = new DOMParser().parseFromString(entries.bodyText, "text/html");
-		var $trs = $('tr', $doc);
-		var fetched = '<div class="locusta_last_update">' + $('.minitxt', $doc).text() + '</div>';
-		var new_year = false;
-		[].forEach.call($trs, function (tr, row_index) {
-		    if (row_index === 0) {
-			return;
-		    }
-		    [].forEach.call(tr.children, function(td, index) {
-			switch (index) {
-			case 0:
-			    var day = parseInt(td.innerText.split('.')[0]);
-			    var month = parseInt(td.innerText.split('.')[1]);
-			    var current_date = new Date();
-			    var current_month = current_date.getMonth() + 1;
-			    var occurred = '';
-			    if (current_month > month) {
-				occurred = ' occurred_date';
+			var $doc = new DOMParser().parseFromString(entries.bodyText, "text/html");
+			var $trs = $('tr', $doc);
+			var fetched = '<div class="locusta_last_update">' + $('.minitxt', $doc).text() + '</div>';
+			var new_year = false;
+			[].forEach.call($trs, function (tr, row_index) {
+			    if (row_index === 0) {
+				return;
 			    }
-			    if (current_month == month) {
-				var current_day = String(new Date().getDate()).padStart(2, '0');
-				if (current_day > day) {
-				    occurred = ' occurred_date';
-				}
-			    }
-			    if (occurred == '') {
-				new_year = true;
-			    }
-			    if (new_year) {
-				occurred = '';
-			    }
-			    fetched += '<div class="locusta_event">';
-			    fetched += '<span class="locusta_date' + occurred + '" id="locusta_date_' + row_index + '">'
-				+ td.innerText + '</span>';
-			    break;
-			case 1:
-			    fetched += '<span class="locusta_city">' + td.innerText + '</span>';
-			    break;
-			case 2:
-			    fetched += td.innerText != '' ? '(<span class="locusta_province">' + td.innerText + '</span>)<br/>' : '<br/>';
-			    break;
-			case 3:
-			    fetched += '<span>' + td.innerText + '</span>';
-			    break;
-			case 4:
-			    fetched += '</div>';
-			    break;
-			default:
-			    ;
-			};
-		    });
-		});
-		return '<div class="locusta_events">' + fetched + "</div>";
+			    [].forEach.call(tr.children, function(td, index) {
+				switch (index) {
+				case 0:
+				    var day = parseInt(td.innerText.split('.')[0]);
+				    var month = parseInt(td.innerText.split('.')[1]);
+				    var current_date = new Date();
+				    var current_month = current_date.getMonth() + 1;
+				    var occurred = '';
+				    if (current_month > month) {
+					occurred = ' occurred_date';
+				    }
+				    if (current_month == month) {
+					var current_day = String(new Date().getDate()).padStart(2, '0');
+					if (current_day > day) {
+					    occurred = ' occurred_date';
+					}
+				    }
+				    if (occurred == '') {
+					new_year = true;
+				    }
+				    if (new_year) {
+					occurred = '';
+				    }
+				    fetched += '<div class="locusta_event">';
+				    fetched += '<span class="locusta_date' + occurred + '" id="locusta_date_' + row_index + '">'
+					+ td.innerText + '</span>';
+				    break;
+				case 1:
+				    fetched += '<span class="locusta_city">' + td.innerText + '</span>';
+				    break;
+				case 2:
+				    fetched += td.innerText != '' ? '(<span class="locusta_province">' + td.innerText + '</span>)<br/>' : '<br/>';
+				    break;
+				case 3:
+				    fetched += '<span>' + td.innerText + '</span>';
+				    break;
+				case 4:
+				    fetched += '</div>';
+				    break;
+				default:
+				    ;
+				};
+			    });
+			});
+			return '<div class="locusta_events">' + fetched + "</div>";
 	    },
 	    locusta_scroll: function () {
-		if (document.querySelectorAll('.locusta_date:not(.occurred_date)')[0] !== undefined) {
-		    var offset = document.querySelectorAll('.locusta_date:not(.occurred_date)')[0].parentNode.offsetTop;
-		    var parent = document.querySelector('#card-Concerti');
-		    var innerParentOffset = document.querySelector('.locusta_events').parentNode.offsetTop;
-		    offset -= innerParentOffset;
-		    parent.scrollTop = offset;
-		}
+			if (document.querySelectorAll('.locusta_date:not(.occurred_date)')[0] !== undefined) {
+			    var offset = document.querySelectorAll('.locusta_date:not(.occurred_date)')[0].parentNode.offsetTop;
+			    var parent = document.querySelector('#card-Concerti');
+			    var innerParentOffset = document.querySelector('.locusta_events').parentNode.offsetTop;
+			    offset -= innerParentOffset;
+			    parent.scrollTop = offset;
+			}
 
 	    }
 	},
