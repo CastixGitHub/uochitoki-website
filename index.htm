@@ -1,765 +1,797 @@
 <!doctype html>
 <html>
-		<head>
-				<title>Il sito ufficiale degli Uochi Toki è gestito da un robot</title>
-				<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-				<meta name="description" content="Pesca automaticamente dal web quasi tutto quello che dovete sapere su di loro. Raccoglie in un'unica pagina le ultime notizie, i video, le foto e la musica sparse per la rete." />
-				<meta name="keywords" content="uochi toki,uochitoki,uochi toki sito ufficiale" />
-				<meta property="og:image" content="http://www.fiscerprais.com/uochi/css/ut_robot_fb.png" />
+  <head>
+    <title>Il sito ufficiale degli Uochi Toki è gestito da un robot</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="Pesca automaticamente dal web quasi tutto quello che dovete sapere su di loro. Raccoglie in un'unica pagina le ultime notizie, i video, le foto e la musica sparse per la rete." />
+    <meta name="keywords" content="uochi toki,uochitoki,uochi toki sito ufficiale" />
+    <meta property="og:image" content="http://www.fiscerprais.com/uochi/css/ut_robot_fb.png" />
 
-				<meta name="viewport" content="width=device-width, initial-scale=1.0">
-				<link rel="icon" href="css/favicon.png" type="image/png" />
-				<link rel="stylesheet" href="css/pure-release-1.0.1/pure-min.css"/>
-				<link rel="stylesheet" href="css/pure-release-1.0.1/grids-responsive-min.css"/>
-				<link rel="stylesheet" href="css/navbar.css">
-				<link rel="stylesheet" href="css/modals.css">
-				<link rel="stylesheet" href="css/main.css">
-				<!--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
-				<script src="js/vue.min.js"></script>
-				<script src="js/rss-parser.min.js"></script>
-				<script src="js/vue-resource.min.js"></script>
-				<script src="js/jquery-3.4.1.min.js"></script>
-		</head>
-		
-		<body>
-				<div id="app">
-						<div class="custom-menu-wrapper">
-						<div class="pure-menu custom-menu custom-menu-top">
-										<a href="#" class="pure-menu-heading custom-menu-brand">
-										<modal-label v-bind:modal="modals['robot']"></modal-label>
-								</a>
-										<a href="#" class="custom-menu-toggle" id="toggle"><s class="bar"></s><s class="bar"></s></a>
-						</div>
-						<div class="pure-menu pure-menu-horizontal pure-menu-scrollable custom-menu custom-menu-bottom custom-menu-tucked" id="tuckedMenu">
-										<div class="custom-menu-screen"></div>
-										<ul class="pure-menu-list">
-												<li class="pure-menu-item">
-												<modal-label v-bind:modal="modals['disclaimer']"></modal-label>
-												<modal-label v-bind:modal="modals['faq']"></modal-label>
-										</li>
-										<li class="pure-menu-item">
-												<a href="https://www.fiscerprais.com/uochi/store/" target="_blank" class="pure-menu-link nav-hidden">Store</a>
-												<a href="https://lightitem.bandcamp.com/" target="_blank" class="pure-menu-link nav-hidden">Light Item</a>
-										</li>
-										<li class="pure-menu-item">
-												<a href="http://www.fiscerprais.com" target="_blank" class="pure-menu-link nav-hidden">Fiscerprais Studio</a>
-												<modal-label v-bind:modal="modals['contacts']"></modal-label>
-										</li>
-												<li class="pure-menu-item">
-												<a href="https://www.facebook.com/45187327654/posts/gara-delle-batterie-elettronicheprossimamente-sul-pianeta-terrahttpwwwyoutubecom/324128727684892/#" target="_blank" class="pure-menu-link nav-hidden">Gara delle batterie elettroniche</a>
-												<a href="http://gliaccostamentiimprobabilidegliuochitoki.bandcamp.com" target="_blank" class="pure-menu-link nav-hidden">Gli accostamenti improbabili</a>
-										</li>
-										<!--
-										<li class="pure-menu-item">
-												<a href="http://www.facebook.com/pages/Uochi-Toki/45187327654" target="_blank" class="pure-menu-link nav-hidden"><img src="http://www.fiscerprais.com/uochi/css/facebook_icon_off.png" name="facebook" id="facebook" width="16" height="16"></a>
-												<a href="http://soundcloud.com/uochi-toki/" target="_blank" class="pure-menu-link nav-hidden"><img src="http://www.fiscerprais.com/uochi/css/soundcloud_icon_off.png" width="16" height="16"></a>
-										</li>-->
-										</ul>
-						</div>
-						</div>
-						<div class="pure-g">
-						<box v-bind:box="boxes['Diretta']">
-								<a target="_blank" href="https://www.google.com/search?q=Uochi+Toki&tbm=nws&hl=it">Ricerca Google News</a>
-								<hr>
-								<RssFeed v-bind:feedUrl="'https://news.google.com/rss/search?q=uochi+toki&hl=it&gl=IT&ceid=IT:it'" v-bind:handleEntry="googleHandler">  
-								</RssFeed>
-						</box>
-						<box v-bind:box="boxes['Disegni']">
-								<div class="sources">
-										<div>
-												<a target="_blank" href="https://www.instagram.com/lapisniger/">
-												<img src="img/logos/instagram.png"/><span>Instagram</span>
-												</a>
-										</div>
-										<div>
-												<a target="_blank" href="https://www.flickr.com/photos/lapisniger/">
-												<img src="img/logos/flickr.png"/><span>Flickr</span>
-												</a>
-										</div>
-								</div>
-								<hr>
-								<RssFeed v-bind:feedUrl="'http://rsshub666.herokuapp.com/picuki/profile/lapisniger'" v-bind:handleEntry="instagramHandler" v-bind:loading_message="'cercando disperatamente di disegnarli da instagram'"></RssFeed>
-								<RssFeed v-bind:feedUrl="'https://www.flickr.com/services/feeds/photos_public.gne?id=28033474@N06&lang=it-it&format=rss_200'" v-bind:handleEntry="flickrHandler" v-bind:loading_message="'altri disegni da flickr'"></RssFeed>
-						</box>
-						<box v-bind:box="boxes['Estratti Audio']">
-								<iframe id="sc-widget" src="https://w.soundcloud.com/player/?url=https://api.soundcloud.com/users/1992384" width="100%" height="465" scrolling="no" frameborder="no"></iframe>
-								<script src="https://w.soundcloud.com/player/api.js" type="text/javascript"></script>
-						</box>
-						<box v-bind:box="boxes['Concerti']">
-								<div class="sources">
-										<div>
-												<a target="_blank" href="https://www.bandsintown.com/a/77104-uochi-toki">
-												<img src="img/logos/bandsintown.png"/><span>bandsintown</span>
-												</a>
-										</div>
-										<div>
-												<a target="_blank" href="http://www.locusta.net/tour_detail.php?id=109&lang=i&band=Uochi%20Toki">
-												<img src="http://www.fiscerprais.com/uochi/css/locusta_logo_2012.png"/><span>Locusta</span>
-												</a>
-										</div>
-								</div>
-								<hr>
-								<Scraper v-bind:url="'http://www.locusta.net/tour_detail.php?id=109&lang=i&band=Uochi%20Toki'" v-bind:handler="locusta_handler" v-bind:nexttick_custom="locusta_scroll"></Scraper>
-						</box>
-						<box v-bind:box="boxes['Video']">
-								<div class="sources">
-										<div><a href="https://www.youtube.com/user/lamegabaita" target="_blank">
-												<img src="img/logos/youtube.png"><span>Canale Youtube MegaBaita</span>
-										</a></div>
-								</div>
-								<hr>
-								<RssFeed v-bind:feedurl="'https://rsshub666.herokuapp.com/youtube/user/lamegabaita/noembed'" v-bind:handleEntry="youtubeHandler" v-bind:loading_message="'prendendo i video da youtube'"></RssFeed>
-						</box>
-						<box v-bind:box="boxes['Discografia']">
-								<div class="discs">
-										<Disc v-for="disc in discs" v-bind:disc="disc" :key="disc._id"></Disc>
-								</div>
-						</box>
-						<box v-bind:box="boxes['Biografia']">
-								<div class="sources">
-										<div><a href="https://it.wikipedia.org/wiki/Uochi_Toki" target="_blank">
-												<img src="img/logos/wikipedia.png"/><span>Wikipedia mendace</span>
-										</a></div>
-								</div>
-								<hr>
-								<Scraper v-bind:url="'https://it.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&explaintext&redirects=1&titles=Uochi_Toki'" v-bind:handler="biografia_handler"></Scraper>
-						</box>
-						<box v-bind:box="boxes['Radio']">
-								<div class="sources">
-										<!--<div><a href="http://radiomerdamalata.scienceontheweb.net/" target="_blank">
-												<img src="img/logos/rmm.png"/><span>Merda Parthner Homepage</span>
-										</a></div>-->
-										<div><a href="http://s.streampunk.cc/merdamalata.ogg" target="_blank">
-												<img src="img/logos/rmm.png"/><span>Stream OGG (preferred)</span>
-										</a></div>
-										<div><a href="http://s.streampunk.cc/merdamalata.mp3" target="_blank">
-												<img src="img/logos/rmm.png"/><span>Stream MP3 (for iOS\Apple device)</span>
-										</a></div>
-										<!--<div><a href="https://minnit.chat/radiomerdamalata" target="_blank">
-												<img src="img/logos/rmm.png"/><span>Chat (to interact with other sick people)</span>
-										</a></div>-->
-								</div>
-								<hr>
-								<p>Se lo stream si blocca, ricarica la pagina</p>
-								<audio controls>
-										<source src="http://s.streampunk.cc/merdamalata.ogg" type="audio/ogg">
-										<source src="http://s.streampunk.cc/merdamalata.mp3" type="audio/mpeg">
-								</audio>
-						</box>
-						<box v-bind:box="boxes['Mailchimp']">
-								<Mailchimp v-bind:action="'https://fiscerprais.us9.list-manage.com/subscribe/post?u=8f15b5f9b89c94257635460ed&id=a8cd35678e'"></Mailchimp>
-						</box>
-						<box v-bind:box="boxes['Contatti']">
-								<div class="contatti">
-										<table width="300" border="0" cellspacing="0" cellpadding="0">
-												<tr>
-												<td valign="middle" height="50" width="80" style="font-size: 40px;padding-left: 10px; width: 70px;">@</td>
-												<td valign="middle">Manda una mail a <em style="display: inline-block; font-weight: 600;">rico_vale at yahoo.it</em></td>
-												</tr>
-										</table>
-								</div>
-								<div class="contatti">
-										<table width="300" border="0" cellspacing="0" cellpadding="0">
-												<tr>
-												<td valign="middle" height="50" width="80"><a href="http://www.latempesta.org" target="_blank"><img src="http://www.fiscerprais.com/uochi/css/tempesta_logo_2012.png"></a></td>
-												<td valign="middle">Pubblicati da <a class="special" href="http://www.latempesta.org" target="_blank">La Tempesta Dischi</a></td>
-												</tr>
-										</table>
-								</div>
-								<div class="contatti">
-										<table width="300" border="0" cellspacing="0" cellpadding="0">
-												<tr>
-												<td valign="middle" height="50" width="80"><a href="http://www.locusta.net" target="_blank"><img src="http://www.fiscerprais.com/uochi/css/locusta_logo_2012.png"></a></td>
-												<td valign="middle">Agenzia booking <a class="special" href="mailto:luca@locusta.net?subject=Sito Robot dice: Luca vorrei fissare una data degli Uochi Toki">Locusta</a></td>
-												</tr> 
-										</table>
-								</div>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="css/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="css/pure-release-1.0.1/pure-min.css"/>
+    <link rel="stylesheet" href="css/pure-release-1.0.1/grids-responsive-min.css"/>
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/modals.css">
+    <link rel="stylesheet" href="css/main.css">
+    <!--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
+    <script src="js/vue.min.js"></script>
+    <script src="js/rss-parser.min.js"></script>
+    <script src="js/vue-resource.min.js"></script>
+    <script src="js/jquery-3.4.1.min.js"></script>
+  </head>
+  
+  <body>
+    <div id="app">
+      <div class="custom-menu-wrapper">
+	<div class="pure-menu custom-menu custom-menu-top">
+          <a href="#" class="pure-menu-heading custom-menu-brand">
+	    <modal-label v-bind:modal="modals['robot']"></modal-label>
+	  </a>
+          <a href="#" class="custom-menu-toggle" id="toggle"><s class="bar"></s><s class="bar"></s></a>
+	</div>
+	<div class="pure-menu pure-menu-horizontal pure-menu-scrollable custom-menu custom-menu-bottom custom-menu-tucked" id="tuckedMenu">
+          <div class="custom-menu-screen"></div>
+          <ul class="pure-menu-list">
+            <li class="pure-menu-item">
+	      <modal-label v-bind:modal="modals['disclaimer']"></modal-label>
+	      <modal-label v-bind:modal="modals['faq']"></modal-label>
+	    </li>
+	    <li class="pure-menu-item">
+	      <a href="https://www.fiscerprais.com/uochi/store/" target="_blank" class="pure-menu-link nav-hidden">Store</a>
+	      <a href="https://lightitem.bandcamp.com/" target="_blank" class="pure-menu-link nav-hidden">Light Item</a>
+	    </li>
+	    <li class="pure-menu-item">
+	      <a href="http://www.fiscerprais.com" target="_blank" class="pure-menu-link nav-hidden">Fiscerprais Studio</a>
+	      <modal-label v-bind:modal="modals['contacts']"></modal-label>
+	    </li>
+            <li class="pure-menu-item">
+	      <a href="https://www.facebook.com/45187327654/posts/gara-delle-batterie-elettronicheprossimamente-sul-pianeta-terrahttpwwwyoutubecom/324128727684892/#" target="_blank" class="pure-menu-link nav-hidden">Gara delle batterie elettroniche</a>
+	      <a href="http://gliaccostamentiimprobabilidegliuochitoki.bandcamp.com" target="_blank" class="pure-menu-link nav-hidden">Gli accostamenti improbabili</a>
+	    </li>
+	    <!--
+	    <li class="pure-menu-item">
+	      <a href="http://www.facebook.com/pages/Uochi-Toki/45187327654" target="_blank" class="pure-menu-link nav-hidden"><img src="http://www.fiscerprais.com/uochi/css/facebook_icon_off.png" name="facebook" id="facebook" width="16" height="16"></a>
+	      <a href="http://soundcloud.com/uochi-toki/" target="_blank" class="pure-menu-link nav-hidden"><img src="http://www.fiscerprais.com/uochi/css/soundcloud_icon_off.png" width="16" height="16"></a>
+	    </li>-->
+          </ul>
+	</div>
+      </div>
+      <div class="pure-g">
+	<box v-bind:box="boxes['Diretta']">
+	  <a target="_blank" href="https://www.google.com/search?q=Uochi+Toki&tbm=nws&hl=it">Ricerca Google News</a>
+	  <hr>
+	  <RssFeed v-bind:feedUrl="'https://news.google.com/rss/search?q=uochi+toki&hl=it&gl=IT&ceid=IT:it'" v-bind:handleEntry="googleHandler">	
+	  </RssFeed>
+	</box>
+	<box v-bind:box="boxes['Disegni']">
+	  <div class="sources">
+	    <div>
+	      <a target="_blank" href="https://www.instagram.com/lapisniger/">
+		<img src="img/logos/instagram.png"/><span>Instagram</span>
+	      </a>
+	    </div>
+	    <div>
+	      <a target="_blank" href="https://www.flickr.com/photos/lapisniger/">
+		<img src="img/logos/flickr.png"/><span>Flickr</span>
+	      </a>
+	    </div>
+	  </div>
+	  <hr>
+	  <RssFeed v-bind:feedUrl="'http://rsshub666.herokuapp.com/picuki/profile/lapisniger'" v-bind:handleEntry="instagramHandler" v-bind:loading_message="'cercando disperatamente di disegnarli da instagram'"></RssFeed>
+	  <RssFeed v-bind:feedUrl="'https://www.flickr.com/services/feeds/photos_public.gne?id=28033474@N06&lang=it-it&format=rss_200'" v-bind:handleEntry="flickrHandler" v-bind:loading_message="'altri disegni da flickr'"></RssFeed>
+	</box>
+	<box v-bind:box="boxes['Estratti Audio']">
+	  <iframe id="sc-widget" src="https://w.soundcloud.com/player/?url=https://api.soundcloud.com/users/1992384" width="100%" height="465" scrolling="no" frameborder="no"></iframe>
+	  <script src="https://w.soundcloud.com/player/api.js" type="text/javascript"></script>
+	</box>
+	<box v-bind:box="boxes['Concerti']">
+	  <div class="sources">
+	    <div>
+	      <a target="_blank" href="https://www.bandsintown.com/a/77104-uochi-toki">
+		<img src="img/logos/bandsintown.png"/><span>bandsintown</span>
+	      </a>
+	    </div>
+	    <div>
+	      <a target="_blank" href="http://www.locusta.net/tour_detail.php?id=109&lang=i&band=Uochi%20Toki">
+		<img src="http://www.fiscerprais.com/uochi/css/locusta_logo_2012.png"/><span>Locusta</span>
+	      </a>
+	    </div>
+	  </div>
+	  <hr>
+	  <Scraper v-bind:url="'http://www.locusta.net/tour_detail.php?id=109&lang=i&band=Uochi%20Toki'" v-bind:handler="locusta_handler" v-bind:nexttick_custom="locusta_scroll"></Scraper>
+	</box>
+	<box v-bind:box="boxes['Video']">
+	  <div class="sources">
+	    <div><a href="https://www.youtube.com/user/lamegabaita" target="_blank">
+		<img src="img/logos/youtube.png"><span>Canale Youtube MegaBaita</span>
+	    </a></div>
+	  </div>
+	  <hr>
+	  <RssFeed v-bind:feedurl="'https://rsshub666.herokuapp.com/youtube/user/lamegabaita/noembed'" v-bind:handleEntry="youtubeHandler" v-bind:loading_message="'prendendo i video da youtube'"></RssFeed>
+	</box>
+	<box v-bind:box="boxes['Discografia']">
+	  <div class="discs">
+	    <Disc v-for="disc in discs" v-bind:disc="disc" :key="disc._id"></Disc>
+	  </div>
+	</box>
+	<box v-bind:box="boxes['Biografia']">
+	  <div class="sources">
+	    <div><a href="https://it.wikipedia.org/wiki/Uochi_Toki" target="_blank">
+		<img src="img/logos/wikipedia.png"/><span>Wikipedia mendace</span>
+	    </a></div>
+	  </div>
+	  <hr>
+	  <Scraper v-bind:url="'https://it.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&explaintext&redirects=1&titles=Uochi_Toki'" v-bind:handler="biografia_handler"></Scraper>
+	</box>
+	<box v-bind:box="boxes['Radio']">
+	  <div class="sources">
+	    <!--<div><a href="http://radiomerdamalata.scienceontheweb.net/" target="_blank">
+	      <img src="img/logos/rmm.png"/><span>Merda Parthner Homepage</span>
+	    </a></div>-->
+	    <div><a href="http://s.streampunk.cc/merdamalata.ogg" target="_blank">
+	      <img src="img/logos/rmm.png"/><span>Stream OGG (preferred)</span>
+	    </a></div>
+	    <div><a href="http://s.streampunk.cc/merdamalata.mp3" target="_blank">
+	      <img src="img/logos/rmm.png"/><span>Stream MP3 (for iOS\Apple device)</span>
+	    </a></div>
+	    <!--<div><a href="https://minnit.chat/radiomerdamalata" target="_blank">
+	      <img src="img/logos/rmm.png"/><span>Chat (to interact with other sick people)</span>
+	    </a></div>-->
+	  </div>
+	  <hr>
+	  <p>Se lo stream si blocca, ricarica la pagina</p>
+	  <audio controls>
+	    <source src="http://s.streampunk.cc/merdamalata.ogg" type="audio/ogg">
+	    <source src="http://s.streampunk.cc/merdamalata.mp3" type="audio/mpeg">
+	  </audio>
+	</box>
+	<box v-bind:box="boxes['Mailchimp']">
+	  <Mailchimp v-bind:action="'https://fiscerprais.us9.list-manage.com/subscribe/post?u=8f15b5f9b89c94257635460ed&id=a8cd35678e'"></Mailchimp>
+	</box>
+	<box v-bind:box="boxes['Contatti']">
+	  <div class="contatti">
+	    <table width="300" border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		<td valign="middle" height="50" width="80" style="font-size: 40px;padding-left: 10px; width: 70px;">@</td>
+		<td valign="middle">Manda una mail a <em style="display: inline-block; font-weight: 600;">rico_vale at yahoo.it</em></td>
+	      </tr>
+	    </table>
+	  </div>
+	  <div class="contatti">
+	    <table width="300" border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		<td valign="middle" height="50" width="80"><a href="http://www.latempesta.org" target="_blank"><img src="http://www.fiscerprais.com/uochi/css/tempesta_logo_2012.png"></a></td>
+		<td valign="middle">Pubblicati da <a class="special" href="http://www.latempesta.org" target="_blank">La Tempesta Dischi</a></td>
+	      </tr>
+	    </table>
+	  </div>
+	  <div class="contatti">
+	    <table width="300" border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		<td valign="middle" height="50" width="80"><a href="http://www.locusta.net" target="_blank"><img src="http://www.fiscerprais.com/uochi/css/locusta_logo_2012.png"></a></td>
+		<td valign="middle">Agenzia booking <a class="special" href="mailto:luca@locusta.net?subject=Sito Robot dice: Luca vorrei fissare una data degli Uochi Toki">Locusta</a></td>
+	      </tr>	
+	    </table>
+	  </div>
 
-								<div class="contatti">
-										<table width="300" border="0" cellspacing="0" cellpadding="0">
-												<tr>
-												<td valign="middle" height="50" width="80"><a href="http://www.pitbellula.com" target="_blank"><img src="http://www.fiscerprais.com/uochi/css/pitbellula_logo.png"></a></td>
-												<td valign="middle">Ufficio stampa <a class="special" href="mailto:rossana@pitbellula.com?subject=Sito Robot dice: Rossana mi servono informazioni sugli Uochi Toki">Pitbellula</a></td>
-												</tr>
-										</table>
-								</div>
-								<!--
-								<div class="contatti">
-										<table width="300" border="0" cellspacing="0" cellpadding="0">
-												<tr>
-												<td valign="middle" height="50" width="80"></td>
-												<td valign="middle">Distribuzione <a class="special" href="https://www.facebook.com/mastermusicpiacenza.mastermusicpiacenza" target="_blank">Mastermusic</a></td>
-												</tr>
-										</table>
-								</div>
-								<div class="contatti">
-										<table width="300" border="0" cellspacing="0" cellpadding="0">
-												<tr>
-												<td valign="middle" height="50" width="80"><a href="http://itunes.apple.com/it/artist/uochi-toki/id305624454" target="_blank"><img src="http://www.fiscerprais.com/uochi/css/apple_logo_2012.png"></a></td>
-												<td valign="middle">Download mp3 <a class="special" href="http://itunes.apple.com/it/artist/uochi-toki/id305624454" target="_blank">iTunes store</a></td>
-												</tr>
-										</table>
-								</div>-->
-								<div class="contatti">
-										<table width="300" border="0" cellspacing="0" cellpadding="0">
-												<tr>
-												<td valign="middle" height="50" width="80"><a class="special" href="https://uochitoki.bandcamp.com/album/store" target="_blank"><img src="https://imag.malavida.com/mvimgbig/download-s/bandcamp-14922-0.jpg"/></a></td>
-												<td valign="middle">Download mp3 <a class="special" href="https://uochitoki.bandcamp.com/album/store" target="_blank">Bandcamp</a></td>
-												</tr>
-										</table>
-								</div>
+	  <div class="contatti">
+	    <table width="300" border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		<td valign="middle" height="50" width="80"><a href="http://www.pitbellula.com" target="_blank"><img src="http://www.fiscerprais.com/uochi/css/pitbellula_logo.png"></a></td>
+		<td valign="middle">Ufficio stampa <a class="special" href="mailto:rossana@pitbellula.com?subject=Sito Robot dice: Rossana mi servono informazioni sugli Uochi Toki">Pitbellula</a></td>
+	      </tr>
+	    </table>
+	  </div>
+	  <!--
+	  <div class="contatti">
+	    <table width="300" border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		<td valign="middle" height="50" width="80"></td>
+		<td valign="middle">Distribuzione <a class="special" href="https://www.facebook.com/mastermusicpiacenza.mastermusicpiacenza" target="_blank">Mastermusic</a></td>
+	      </tr>
+	    </table>
+	  </div>
+	  <div class="contatti">
+	    <table width="300" border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		<td valign="middle" height="50" width="80"><a href="http://itunes.apple.com/it/artist/uochi-toki/id305624454" target="_blank"><img src="http://www.fiscerprais.com/uochi/css/apple_logo_2012.png"></a></td>
+		<td valign="middle">Download mp3 <a class="special" href="http://itunes.apple.com/it/artist/uochi-toki/id305624454" target="_blank">iTunes store</a></td>
+	      </tr>
+	    </table>
+	  </div>-->
+	  <div class="contatti">
+	    <table width="300" border="0" cellspacing="0" cellpadding="0">
+	      <tr>
+		<td valign="middle" height="50" width="80"><a class="special" href="https://uochitoki.bandcamp.com/album/store" target="_blank"><img src="https://imag.malavida.com/mvimgbig/download-s/bandcamp-14922-0.jpg"/></a></td>
+		<td valign="middle">Download mp3 <a class="special" href="https://uochitoki.bandcamp.com/album/store" target="_blank">Bandcamp</a></td>
+	      </tr>
+	    </table>
+	  </div>
 
-						</box>
-						</div>
-						<div v-for="modal in modals" :key="modal._id">
-						<modal-item v-bind:modal="modal"></modal-item>
-						</div>
-				</div>
-		</body>
-		<script type="text/x-template" id="modal-template">
-				<div>
-						<input class="modal-state" :id="'modal-' + modal.id" type="checkbox" />
-						<div class="modal">
-								<label class="modal__bg" :for="'modal-' + modal.id"></label>
-								<div class="modal__inner">
-										<label class="modal__close" :for="'modal-' + modal.id"></label>
-								<h2>{{modal.title}}</h2>
-								<p v-html="modal.body"></p>
-								</div>
-						</div>
-				</div>
-		</script>
-		<script type="text/x-template" id="modal-label-template">
-				<label :for="'modal-' + modal.id" class="btn pure-menu-link nav-hidden" v-html="modal.label" onclick="if (this.attributes['for'].value != 'modal-robot') document.getElementById('toggle').click()"></label>
-		</script>
-		<script type="text/x-template" id="box-template">
-				<div class="pure-u-1 pure-u-md-1-3">
-				<div class="card" :id="'card-' + box.id">
-								<h2>{{box.title}}</h2>
-								<hr/>
-								<slot></slot>
-						</div>
-				</div>
-		</script>
-		<script type="text/x-template" id="rssfeed-template">
-				<div>
-				<div v-if="!error && !loading" v-for="(entry, idx) in entries" :key="entry.guid">
-						<a :href="entry.link" target="_blank"><h4 class="entrytitle">{{entry.title}}</h4></a>
-						<span class="entrydate">{{entry.isoDate.slice(0, 10).split('-').reverse().join('/')}}</span>
-						<p v-html="entry.content"></p>
-				</div>
-				<div v-if="error" class="error"><p>Error: {{error}}</p></div>
-				<div v-if="loading">
-				<div class="lds-svg ng-scope"><svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-infinity"><path fill="none" d="M24.3,30C11.4,30,5,43.3,5,50s6.4,20,19.3,20c19.3,0,32.1-40,51.4-40 C88.6,30,95,43.3,95,50s-6.4,20-19.3,20C56.4,70,43.6,30,24.3,30z" stroke="#000000" stroke-width="6" stroke-dasharray="3.88771103367661 3.88771103367661"><animate attributeName="stroke-dashoffset" calcMode="linear" values="0;256.58892822265625" keyTimes="0;1" dur="6.6" begin="0s" repeatCount="indefinite"></animate></path></svg></div>
-				<span class="loading_message">{{loading_message}}</span>
-				</div>
-				</div>
-		</script>
-		<script type="text/x-template" id="scraper-template">
-				<div>
-				<div v-if="!error && !loading" v-html="fetched"></div>
-				<div v-if="error" class="error"><p>Error: {{error}}</p></div>
-				<div v-if="loading">
-				<div class="lds-svg ng-scope"><svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-infinity"><path fill="none" d="M24.3,30C11.4,30,5,43.3,5,50s6.4,20,19.3,20c19.3,0,32.1-40,51.4-40 C88.6,30,95,43.3,95,50s-6.4,20-19.3,20C56.4,70,43.6,30,24.3,30z" stroke="#000000" stroke-width="6" stroke-dasharray="3.88771103367661 3.88771103367661"><animate attributeName="stroke-dashoffset" calcMode="linear" values="0;256.58892822265625" keyTimes="0;1" dur="6.6" begin="0s" repeatCount="indefinite"></animate></path></svg></div>
-				<span class="loading_message">{{loading_message || 'Loading...'}}</span>
-				</div>
-				</div>
-		</script>
-		<script type="text/x-template" id="disc-template">
-				<div class="disc">
-				<a class="disc_title" :href="disc.link" target="_blank">
-								<img class="disc_thumbnail" :src="disc.thumbnail" />
-								<h4>{{disc.title}}</h4>
-								<h5 v-for="coauthor in disc.coauthors" class="disc_coauthor">
-										+ <a :href="coauthor.link" target="_blank">{{coauthor.name}}</a>
-								</h5>
-						</a>
-						<div class="disc_description" v-html="disc.description"></div>
-						<div class="disc_line"></div>
-						<div class="disc_subdescription" v-html="disc.subdescription"></div>
-						<hr/>
-				</div>
-		</script>
-		<script type="text/x-template" id="mailchimp-template">
-				<div class="mailchimp">
-				<form v-if="!successMessage" v-on:submit.prevent="subscribe">
-						<p>Aggiungi il tuo <b>nome</b> e il tuo <b>indirizzo e-mail</b> alla mia lista contatti per ricevere in maniera aperiodica mail <b>non direttamente rivolte a te</b>:</p>
-						<input v-model="email" name="EMAIL" type="email" placeholder="Email" id="email" />
-						<input v-model="lname" name="LNAME" type="text" placeholder="Nome" id="lname" />
-						<input type="submit" value="Iscriviti"/>
-				</form>
-				<p v-if="errorMessage && !successMessage" transition="fade" class="error">{{ errorMessage }}</p>
-				<p v-if="successMessage" transition="fade">{{ successMessage }}</p>
-				</div>
-		</script>
-		<script>
-				var ModalItem = Vue.component('modal-item', {
-						props: ['modal'],
-						template: '#modal-template'
-				});
+	</box>
+      </div>
+      <div v-for="modal in modals" :key="modal._id">
+	<modal-item v-bind:modal="modal"></modal-item>
+      </div>
+    </div>
+  </body>
+  <script type="text/x-template" id="modal-template">
+    <div>
+      <input class="modal-state" :id="'modal-' + modal.id" type="checkbox" />
+      <div class="modal">
+        <label class="modal__bg" :for="'modal-' + modal.id"></label>
+        <div class="modal__inner">
+          <label class="modal__close" :for="'modal-' + modal.id"></label>
+	  <h2>{{modal.title}}</h2>
+	  <p v-html="modal.body"></p>
+        </div>
+      </div>
+    </div>
+  </script>
+  <script type="text/x-template" id="modal-label-template">
+    <label :for="'modal-' + modal.id" class="btn pure-menu-link nav-hidden" v-html="modal.label" onclick="if (this.attributes['for'].value != 'modal-robot') document.getElementById('toggle').click()"></label>
+  </script>
+  <script type="text/x-template" id="box-template">
+    <div class="pure-u-1 pure-u-md-1-3">
+    <div class="card" :id="'card-' + box.id">
+        <h2>{{box.title}}</h2>
+        <hr/>
+        <slot></slot>
+      </div>
+    </div>
+  </script>
+  <script type="text/x-template" id="rssfeed-template">
+    <div>
+    <div v-if="!error && !loading" v-for="(entry, idx) in entries" :key="entry.guid">
+      <a :href="entry.link" target="_blank"><h4 class="entrytitle">{{entry.title}}</h4></a>
+      <span class="entrydate">{{entry.isoDate.slice(0, 10).split('-').reverse().join('/')}}</span>
+      <p v-html="entry.content"></p>
+    </div>
+    <div v-if="error" class="error"><p>Error: {{error}}</p></div>
+    <div v-if="loading">
+    <div class="lds-svg ng-scope"><svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-infinity"><path fill="none" d="M24.3,30C11.4,30,5,43.3,5,50s6.4,20,19.3,20c19.3,0,32.1-40,51.4-40 C88.6,30,95,43.3,95,50s-6.4,20-19.3,20C56.4,70,43.6,30,24.3,30z" stroke="#000000" stroke-width="6" stroke-dasharray="3.88771103367661 3.88771103367661"><animate attributeName="stroke-dashoffset" calcMode="linear" values="0;256.58892822265625" keyTimes="0;1" dur="6.6" begin="0s" repeatCount="indefinite"></animate></path></svg></div>
+    <span class="loading_message">{{loading_message}}</span>
+    </div>
+    </div>
+  </script>
+  <script type="text/x-template" id="scraper-template">
+    <div>
+    <div v-if="!error && !loading" v-html="fetched"></div>
+    <div v-if="error" class="error"><p>Error: {{error}}</p></div>
+    <div v-if="loading">
+    <div class="lds-svg ng-scope"><svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-infinity"><path fill="none" d="M24.3,30C11.4,30,5,43.3,5,50s6.4,20,19.3,20c19.3,0,32.1-40,51.4-40 C88.6,30,95,43.3,95,50s-6.4,20-19.3,20C56.4,70,43.6,30,24.3,30z" stroke="#000000" stroke-width="6" stroke-dasharray="3.88771103367661 3.88771103367661"><animate attributeName="stroke-dashoffset" calcMode="linear" values="0;256.58892822265625" keyTimes="0;1" dur="6.6" begin="0s" repeatCount="indefinite"></animate></path></svg></div>
+    <span class="loading_message">{{loading_message || 'Loading...'}}</span>
+    </div>
+    </div>
+  </script>
+  <script type="text/x-template" id="disc-template">
+    <div class="disc">
+    <a class="disc_title" :href="disc.link" target="_blank">
+        <img class="disc_thumbnail" :src="disc.thumbnail" />
+        <h4>{{disc.title}}</h4>
+        <h5 v-for="coauthor in disc.coauthors" class="disc_coauthor">
+          + <a :href="coauthor.link" target="_blank">{{coauthor.name}}</a>
+        </h5>
+      </a>
+      <div class="disc_description" v-html="disc.description"></div>
+      <div class="disc_line"></div>
+      <div class="disc_subdescription" v-html="disc.subdescription"></div>
+      <hr/>
+    </div>
+  </script>
+  <script type="text/x-template" id="mailchimp-template">
+    <div class="mailchimp">
+    <form v-if="!successMessage" v-on:submit.prevent="subscribe">
+      <p>Aggiungi il tuo <b>nome</b> e il tuo <b>indirizzo e-mail</b> alla mia lista contatti per ricevere in maniera aperiodica mail <b>non direttamente rivolte a te</b>:</p>
+      <input v-model="email" name="EMAIL" type="email" placeholder="Email" id="email" />
+      <input v-model="lname" name="LNAME" type="text" placeholder="Nome" id="lname" />
+      <input type="submit" value="Iscriviti"/>
+    </form>
+    <p v-if="errorMessage && !successMessage" transition="fade" class="error">{{ errorMessage }}</p>
+    <p v-if="successMessage" transition="fade">{{ successMessage }}</p>
+    </div>
+  </script>
+  <script>
+    var ModalItem = Vue.component('modal-item', {
+	props: ['modal'],
+	template: '#modal-template'
+    });
 
-				var ModalLabel = Vue.component('modal-label', {
-						props: ['modal'],
-						template: '#modal-label-template'
-				});
+    var ModalLabel = Vue.component('modal-label', {
+	props: ['modal'],
+	template: '#modal-label-template'
+    });
 
-				var Box = Vue.component('box', {
-						props: ['box'],
-						template: '#box-template'
-				});
+    var Box = Vue.component('box', {
+	props: ['box'],
+	template: '#box-template'
+    });
 
-				var Disc = Vue.component('disc', {
-						props: ['disc'],
-						template: '#disc-template'
-				});
+    var Disc = Vue.component('disc', {
+	props: ['disc'],
+	template: '#disc-template'
+    });
 
 
-				var RssFeed = Vue.component('rssfeed',  {
-						props: {
-										'feedurl': String,
-										'handleentry': Function,
-										'loading_message': String
-						},
-						template: '#rssfeed-template',
-						data: function() { return {
-										error: null,
-										loading: true,
-										entries: []
-						}},
-						created: function() {
-										this.fetch()
-						},
-						methods: {
-										fetch: function () {
-												let self = this;
-												let parser = new RSSParser();
-												const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
-												let feed = parser.parseURL(CORS_PROXY + this.feedurl, function(err, feed) {
-																if (err) {
-																		console.error(err);
-																		self.error = err.message;
-																		return;
-																}
-																feed.items.forEach(function(entry) {
-																		entry = self.handleentry(entry);
-																		self.entries.push(entry);
-																});
-																self.loading = false;
-												});
-										}
-						}
-				});
+    var RssFeed = Vue.component('rssfeed',  {
+	props: {
+	    'feedurl': String,
+	    'handleentry': Function,
+	    'loading_message': String
+	},
+	template: '#rssfeed-template',
+	data: function() { return {
+	    error: null,
+	    loading: true,
+	    entries: []
+	}},
+	created: function() {
+	    this.fetch()
+	},
+	methods: {
+	    fetch: function () {
+		let self = this;
+		let parser = new RSSParser();
+		const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
+		let feed = parser.parseURL(CORS_PROXY + this.feedurl, function(err, feed) {
+		    if (err) {
+			console.error(err);
+			self.error = err.message;
+			return;
+		    }
+		    feed.items.forEach(function(entry) {
+			entry = self.handleentry(entry);
+			self.entries.push(entry);
+		    });
+		    self.loading = false;
+		});
+	    }
+	}
+    });
 
-				var Scraper = Vue.component('scraper', {
-						props: {
-										url: String,
-										handler: Function,
-										nexttick_custom: Function
-						},
-						template: '#scraper-template',
-						data: function() { return {
-										error: null,
-										loading: true,
-										fetched: null
-						}},
-						created: function() {
-										this.fetch()
-						},
-						updated: function () {
-										var self = this;
-										if (self.nexttick_custom !== undefined) {
-												this.$nextTick(function () {
-																self.nexttick_custom();
-												});
-										}
-						},
-						methods: {
-										fetch: function () {
-												let self = this;
-												this.$http.get('https://cors-anywhere.herokuapp.com/' + self.url).then(function(response) {
-																self.fetched = self.handler(response);
-												}, function(error) {
-																self.error = error.message || error.statusText;
-												});
-												self.loading = false;
-										}
-						}
-				});
+    var Scraper = Vue.component('scraper', {
+	props: {
+	    url: String,
+	    handler: Function,
+	    nexttick_custom: Function
+	},
+	template: '#scraper-template',
+	data: function() { return {
+	    error: null,
+	    loading: true,
+	    fetched: null
+	}},
+	created: function() {
+	    this.fetch()
+	},
+	updated: function () {
+	    var self = this;
+	    if (self.nexttick_custom !== undefined) {
+		this.$nextTick(function () {
+		    self.nexttick_custom();
+		});
+	    }
+	},
+	methods: {
+	    fetch: function () {
+		let self = this;
+		this.$http.get('https://cors-anywhere.herokuapp.com/' + self.url).then(function(response) {
+		    self.fetched = self.handler(response);
+		}, function(error) {
+		    self.error = error.message || error.statusText;
+		});
+		self.loading = false;
+	    }
+	}
+    });
 
-				// https://gist.github.com/chrsgrffth/fa69fa9874871c8b52afc01d1a881e6d
-				var Mailchimp = Vue.component('mailchimp', {
-						props: {
-										action: {
-												required: true,
-												type: String
-										}
-						},
-						template: '#mailchimp-template',
-						data: function() { return {
-										email: '',
-										lname: '',
-										response: {},
-										errorMessage: null,
-										successMessage: null
-						}},
-						methods: {
-										subscribe: function (e) {
-												var self = this;
-												var params = $(e.currentTarget).serialize();
-												$.ajax({
-																type: 'POST',
-																url: this.action.replace('/post?', '/post-json?').concat('&c=?'),
-																data: params,
-																dataType: 'jsonp',
-																headers: {'Access-Control-Allow-Origin':'*'},
-												}).done(function (res) {
-																console.log(res);
-																if (res.result == 'success') {
-																		self.successMessage = res.msg;
-																} else {
-																		self.errorMessage = res.msg;
-																}
-												}).fail(function (res) {
-																console.log(res);
-																self.errorMessage = res.msg;
-												});
-										}
-						}
-				});
+    // https://gist.github.com/chrsgrffth/fa69fa9874871c8b52afc01d1a881e6d
+    var Mailchimp = Vue.component('mailchimp', {
+	props: {
+	    action: {
+		required: true,
+		type: String
+	    }
+	},
+	template: '#mailchimp-template',
+	data: function() { return {
+	    email: '',
+	    lname: '',
+	    response: {},
+	    errorMessage: null,
+	    successMessage: null
+	}},
+	methods: {
+	    subscribe: function (e) {
+		var self = this;
+		var params = $(e.currentTarget).serialize();
+		$.ajax({
+		    type: 'POST',
+		    url: this.action.replace('/post?', '/post-json?').concat('&c=?'),
+		    data: params,
+		    dataType: 'jsonp',
+		    headers: {'Access-Control-Allow-Origin':'*'},
+		}).done(function (res) {
+		    console.log(res);
+		    if (res.result == 'success') {
+			self.successMessage = res.msg;
+		    } else {
+			self.errorMessage = res.msg;
+		    }
+		}).fail(function (res) {
+		    console.log(res);
+		    self.errorMessage = res.msg;
+		});
+	    }
+	}
+    });
 
-		var app = new Vue({
-				el: '#app',
-				components: { ModalItem, ModalLabel, Box, Disc, RssFeed, Scraper, Mailchimp },
-				methods: {
+    var app = new Vue({
+			el: '#app',
+			components: { ModalItem, ModalLabel, Box, Disc, RssFeed, Scraper, Mailchimp },
+			methods: {
 				googleHandler: function(entry){
-										delete entry.content;
-										return entry;
+					//console.log(entry);
+					delete entry.content;
+					//console.log(entry);
+					return entry;
 				},
-				flickrHandler: function (entry) {
-												entry.content = entry.content.replace('<p><a href=\"https://www.flickr.com/people/lapisniger/\">LapisNiger x y z t</a> ha postato una foto:</p>', '');
-												return entry;
-				},
-				instagramHandler: function (entry) {
-												entry.content = entry.content.replace(/<img src="https:\/\/scontent/g, '<img class="instagram-content" onclick="window.open(this.src)" src="https://scontent');
-										let image_length = entry.content.indexOf(">");
-										let image = entry.content.substring(0, image_length + 1);
-												if (entry.title.endsWith('...')) {
-																let last_space_index = entry.title.lastIndexOf(' ')
-																entry.title = entry.title.substring(0, last_space_index);
-																entry.content = entry.content.substring(image_length + 4 + last_space_index) + image;
-												}else{
-																		entry.content = image;
-												}
-												return entry;
-				},
-				youtubeHandler: function (entry) {
-												entry.content = entry.content.replace(/<img src=/g, '<a href="' + entry.link + '" target="_blank"><img class="youtube-thumbnail" src=').replace(/<\/img>/g, '</img></a>');
-												return entry;
-				},
-				soundcloudHandler: function (entry) {
-												return entry;
-				},
-				biografia_handler: function (entries) {
-												entries = JSON.parse(entries.bodyText).query.pages[1443708].extract;
-												return '<pre>' + entries + '</pre>';
-				},
-				locusta_handler: function (entries) {
-												var $doc = new DOMParser().parseFromString(entries.bodyText, "text/html");
-												var $trs = $('tr', $doc);
-												var fetched = '<div class="locusta_last_update">' + $('.minitxt', $doc).text() + '</div>';
-												var new_year = false;
-												[].forEach.call($trs, function (tr, row_index) {
-																if (row_index === 0) {
-																		return;
-																}
-																[].forEach.call(tr.children, function(td, index) {
-																		switch (index) {
-																		case 0:
-																						var day = parseInt(td.innerText.split('.')[0]);
-																						var month = parseInt(td.innerText.split('.')[1]);
-																						var current_date = new Date();
-																						var current_month = current_date.getMonth() + 1;
-																						var occurred = '';
-																						if (current_month > month) {
-																								occurred = ' occurred_date';
-																						}
-																						if (current_month == month) {
-																								var current_day = String(new Date().getDate()).padStart(2, '0');
-																								if (current_day > day) {
-																												occurred = ' occurred_date';
-																								}
-																						}
-																						if (occurred == '') {
-																								new_year = true;
-																						}
-																						if (new_year) {
-																								occurred = '';
-																						}
-																						fetched += '<div class="locusta_event">';
-																						fetched += '<span class="locusta_date' + occurred + '" id="locusta_date_' + row_index + '">'
-																								+ td.innerText + '</span>';
-																						break;
-																		case 1:
-																						fetched += '<span class="locusta_city">' + td.innerText + '</span>';
-																						break;
-																		case 2:
-																						fetched += td.innerText != '' ? '(<span class="locusta_province">' + td.innerText + '</span>)<br/>' : '<br/>';
-																						break;
-																		case 3:
-																						fetched += '<span>' + td.innerText + '</span>';
-																						break;
-																		case 4:
-																						fetched += '</div>';
-																						break;
-																		default:
-																						;
-																		};
-																});
-												});
-												return '<div class="locusta_events">' + fetched + "</div>";
-				},
-				locusta_scroll: function () {
-												if (document.querySelectorAll('.locusta_date:not(.occurred_date)')[0] !== undefined) {
-																var offset = document.querySelectorAll('.locusta_date:not(.occurred_date)')[0].parentNode.offsetTop;
-																var parent = document.querySelector('#card-Concerti');
-																var innerParentOffset = document.querySelector('.locusta_events').parentNode.offsetTop;
-																offset -= innerParentOffset;
-																parent.scrollTop = offset;
-												}
-								}
-						},
-						mounted: function () {
-										document.getElementById('toggle').addEventListener('click', function (e) {
-												document.getElementById('tuckedMenu').classList.toggle('custom-menu-tucked');
-												document.getElementById('toggle').classList.toggle('x');
-												for (let link of document.getElementsByClassName('pure-menu-link')) {
-																link.classList.toggle('nav-hidden');
-												}
-										});
-						},
-						data: {
-										message: 'Hello Vue!',
-										modals: {
-												'robot': {
-																_id: 0, id: 'robot', title: '', label: '<img src="http://www.fiscerprais.com/uochi/css/header_small.gif"></img>', body: '<img src="http://www.fiscerprais.com/uochi/css/robot_small.jpg"></img>'},
-												'disclaimer': {
-																_id: 1, id: 'disclaimer', title: 'Disclaimer', label: 'Informazioni & disclaimer', body: 'Questo sito &egrave; un aggregatore di risorse web sugli Uochi Toki pubblicate a scopo informativo.<br />\nIl materiale utilizzato come fonte è disponibile pubblicamente nel web e qui riprodotto solo parzialmente o in modo degradato (titoli o incipit di post, miniature a bassa risoluzione di immagini, ecc). I contenuti sono recuperati e pubblicati automaticamente, senza controllo umano, in un\'unica pagina web. <br />\nIl materiale &egrave; ricercato nel web attraverso feed RSS, alcuni dei quali resi già disponibili da social network, motori di ricerca, blog, ecc.<br />\nI materiali pubblicati sono di proprietà dei rispettivi autori. Il materiale provieniente da Wikipedia è pubblicato sotto licenza <a class="special" href="http://creativecommons.org/licenses/by-sa/3.0/deed.it" target="_blank">CC-BY-SA</a>. Ogni materiale pubblicato rimanda alla pagina originale di pubblicazione o all\'autore originale attraverso un link. I tooltip presenti in questo sito indicano come raggiungere le fonti originali.<br />\nTrattandosi di materiale scelto e pubblicato in automatico dal sistema non siamo responsabili del materiale pubblicato n&egrave; possiamo in ogni caso condividerne i contenuti. Per la stessa ragione non siamo responsabili del contenuto dei siti ai quali rimandano i nostri link.<br />\n<h3><strong>Cancellazione materiale</strong></h3>\nSe questo sito pubblica del materiale creato da te, materiale di tua proprietà o materiale che gestisci in licenza e vuoi che sia eliminato o modificato contatta il webmaster cliccando <a class="special" href="mailto:matteo@sicetsimpliciter.com">qui</a>.<br /><br />'
-												},
-												'faq': {
-																_id: 2, id: 'faq', title: 'FAQ', label: 'Leggi la FAQ', body: '<div>Q &middot; <em><strong>Gli</strong></em> <span class="ut">Uochi Toki</span> <em><strong>odiano le donne? </strong></em><br />A &middot; No<br /><br />Q &middot; <em><strong>Gli</strong></em> <span class="ut">Uochi Toki</span> <em><strong>amano le donne? </strong></em><br />A &middot; No<br /><br />Q &middot; <em><strong>Gli</strong></em> <span class="ut">Uochi Toki</span> <em><strong>odiano il genere umano?</strong></em><br />A &middot; No<br /><br />Q &middot; <em><strong>Gli</strong></em> <span class="ut">Uochi Toki</span> <em><strong>amano il genere umano?</strong></em><br />A &middot;  No<br /><br />Q &middot;· <em><strong>Gli</strong></em> <span class="ut">Uochi Toki</span> <em><strong>sono di destra o di sinistra?</strong></em><br />A &middot;  No<br /><br />Q &middot; <em><strong>Gli</strong></em> <span class="ut">Uochi Toki</span> <em><strong>sono straight edge?</strong></em><br />A &middot;  No<br /><br />Q &middot; <em><strong>Gli</strong></em> <span class="ut">Uochi Toki</span> <em><strong>amano la guerra o la diplomazia?</strong></em><br />A &middot; Entrambe quando sono simulate.<br /><br />Q &middot; <em><strong>Gli</strong></em> <span class="ut">Uochi Toki</span> <em><strong>sono troppo matti?</strong></em><br />A &middot; Adesso si.<br /><br />Q &middot; <em><strong>Gli</strong></em> <span class="ut">Uochi Toki</span> <em><strong>fanno rap?</strong></em><br />A &middot; Si.<br /><br />Q &middot; <em><strong>E gli altri rappers sono daccordo?</strong></em><br />A &middot; No<br /><br />Q &middot; <em><strong>E allora gli</strong></em> <span class="ut">Uochi Toki</span> <em><strong>fanno rap o no?</strong></em><br />A &middot; No<br /><br />Q &middot; <em><strong>Come vedono la Scena </strong></em>(inserire nome di fenomeno musicale) <em><strong>gli</strong></em> <span class="ut">Uochi Toki</span>?....<br />A &middot; Bene, dai.<br /><br />Q &middot; <em><strong>Posso fare una delle domande di questa FAQ agli</strong></em> <span class="ut">Uochi Toki</span> <em><strong> chiedendo di fare i seri e rispondere per bene?</strong></em><br />A &middot; Non ce n’è motivo.<br /><br />Q &middot; <em><strong>Gli</strong></em> <span class="ut">Uochi Toki</span> usano termini difficili perchè questo li fa sentire intellettuali?....<br />A &middot; No.<br /><br />Q &middot; <em><strong>È vero che gli</strong></em> <span class="ut">Uochi Toki</span> <em><strong>si occupano di magia?</strong></em><br />A &middot; Si, da prima che fosse di moda.<br /><br />Q &middot; <em><strong>Che bisogno hanno gli</strong></em> <span class="ut">Uochi Toki</span> <em><strong>di esporre questa FAQ?</strong></em><br />A &middot; Serve a limitare il fenomeno delle domande sempre uguali facendo intendere che ci piacerebbe avere interlocutori più svegli.<br /><br />Q &middot; <em><strong>Ascoltare gli</strong></em> <span class="ut">Uochi Toki</span> <em><strong>mi fa credere di essere più intelligente?</strong></em><br />A &middot; Si.<br /><br />Q &middot; <em><strong>Ascoltare gli</strong></em> <span class="ut">Uochi Toki</span> <em><strong>mi fa essere più intelligente?</strong></em><br />A &middot; No.<br /><br />Q &middot; <em><strong>Nell\'ultimo disco gli </strong></em> <span class="ut">Uochi Toki</span> <em><strong>sono diventati più</strong></em> (inserire giudizio di valore che serve a dimostrare che anche voi avete una opinione sulle cose e quindi una personalità)<em>?</em><br />A &middot; In una certa misura...<br /><br />Q &middot; <em><strong>Rico registra i gruppi?</strong></em><br />A &middot; <a class="special" href="http://www.msplinks.com/MDFodHRwOi8vd3d3LmZpc2NlcnByYWlzLmNvbQ==" target="_blank">Si.</a><br /><br />Q &middot; <em><strong>Napo disegna?</strong></em><br />A &middot; <a class="special" href="http://www.msplinks.com/MDFodHRwOi8vd3d3LmZsaWNrci5jb20vcGhvdG9zL2xhcGlzbmlnZXI=" target="_blank">Si.</a><br /><br />Q &middot; <em><strong>Gli </strong></em> <span class="ut">Uochi Toki</span> <em><strong>non hanno una biografia classica che inizia con “Gli</strong></em> <span class="ut">Uochi Toki</span><em><strong> nascono nel...” perchè vogliono fare i diversi?</strong></em><br />A &middot; No, è che Napo non è in grado di riassumere quando scrive, quindi ha tentato l\'impresa titanica di scrivere una biografia che descrivesse OGNI SECONDO della vita degli <span class="ut">Uochi Toki</span> <em><strong>però sorgevano problemi irrisolvibili, quindi ha rinunciato.</strong></em></span><br /><br /></div>'
-												},
-												'contacts': {
-																_id: 3, id: 'contacts', title: '', label: 'Contatti & Crediti', body: '<h1>Contatti</h1><hr /><table width="490" border="0" cellspacing="0" cellpadding="0">  <tr>    <td valign="middle" height="36"><a href="http://www.latempesta.org" target="_blank"><img src="http://www.fiscerprais.com/uochi/css/tempesta_logo_2012.png"></a></td>    <td valign="middle">Label <strong>La Tempesta Dischi</strong> <a class="special" href="http://www.latempesta.org" target="_blank">www.latempesta.org</a></td>  </tr>  <tr>    <td valign="middle" height="36"><a href="http://www.venusdischi.com" target="_blank"><img src="http://www.fiscerprais.com/uochi/css/venus_logo_2012.png"></a></td>    <td valign="middle">Distribuzione <strong>Venus</strong> <a class="special" href="http://www.venusdischi.com" target="_blank">www.venusdischi.com</a></td>  </tr>  <tr>    <td valign="middle" height="36"><a href="http://itunes.apple.com/it/artist/uochi-toki/id305624454" target="_blank"><img src="http://www.fiscerprais.com/uochi/css/apple_logo_2012.png"></a></td>    <td valign="middle">Download <strong>iTunes</strong> <a class="special" href="http://itunes.apple.com/it/artist/uochi-toki/id305624454" target="_blank">Tutti i dischi presenti nello store</a></td>  </tr>  <tr>    <td valign="middle" height="36"><a href="http://www.locusta.net" target="_blank"><img src="http://www.fiscerprais.com/uochi/css/locusta_logo_2012.png"></a></td>    <td valign="middle">Booking <strong>Locusta </strong> <a class="special" href="mailto:luca@locusta.net">Email Luca/Locusta</a></td>  </tr>        <tr>    <td valign="middle" height="36"><a href="http://www.pitbellula.com" target="_blank"><img src="http://www.fiscerprais.com/uochi/css/pitbellula_logo.png"></a></td>    <td valign="middle">Ufficio stampa <strong>Pitbellula</strong> <a class="special" href="mailto:rossana@pitbellula.com">Email Rossana/Pitbellula</a></td>  </tr>  </table> <hr />    <table width="490" border="0" cellspacing="0" cellpadding="0">  <tr>    <td valign="middle" height="36">Lo studio di Rico <strong>Fiscerprais</strong> <a class="special" href="http://www.fiscerprais.com" target="_blank">www.fiscerprais.com</a> oppure <a class="special" href="mailto:info@fiscerprais.com">email Rico</a></td>  </tr>  <tr>    <td valign="middle" height="36">I disegni di Napo <strong>LapisNiger x y z t</strong> <a class="special" href="http://www.flickr.com/photos/lapisniger" target="_blank">www.flickr.com/photos/lapisniger</a></td>  </tr>    </table>       <h1>Crediti</h1><hr />    <table width="490" border="0" cellspacing="0" cellpadding="0">   <tr>    <td valign="middle" height="36">Sito realizzato da Matteo Cellerino <strong>sic&amp;simpliciter</strong> <a class="special" href="http://www.sicetsimpliciter.com" target="_blank">www.sicetsimpliciter.com</a>. Rimodernato da <a href="https://github.com/CastixGitHub">Castix</a></td>  </tr></table><br /><h1>Codice</h1><hr />    <table width="490" border="0" cellspacing="0" cellpadding="0">   <tr>    <td valign="middle" height="36">Il codice sorgente del sito è disponibile <a href="https://github.com/CastixGitHub/uochitoki-website" target="_blank">qui</a>. È di pubblico dominio.</tr></table><br /></div>'
-												}
-																
-										},
-										boxes: {
-												'Disegni': {
-																_id: 0, id: 'Disegni', title: 'Disegni'
-												},
-												'Estratti Audio': {
-																_id: 1, id: 'Audio', title: 'Estratti Audio'
-												},
-												'Video': {
-																_id: 2, id: 'Video', title: 'Video'
-												},
-												'Concerti': {
-																_id: 3, id: 'Concerti', title: 'Concerti'
-												},
-												'Biografia': {
-																_id: 4, id: 'Biografia', title: 'Biografia'
-												},
-												'Discografia': {
-																_id: 5, id: 'Discografia', title: 'Discografia'
-												},
-												'Contatti': {
-																_id: 6, id: 'Contatti', title: 'Contatti'
-												},
-												'Diretta': {
-																_id: 6, id: 'Diretta', title: 'Diretta'
-												},
-												'Radio': {
-																_id: 7, id: 'Radio', title: 'Radio Merda Malata'
-												},
-												'Mailchimp': {
-																_id: 8, id: 'Mailchimp', title: 'Mailing List'
-												}
-										},
-										discs: [
-												{
-																_id: 16,
-																//thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/malaeducaty.jpg',
-																thumbnail: 'img/ltd_037/malaeducaty.jpg',
-																link: 'https://www.fiscerprais.com/uochi/store/acchiappa/malaeducaty/',
-																title: 'Malæducaty',
-																coauthor: [],
-																description: `&rarr; CDr + Download Digitale, Pubblicato da <a href="https://lightitem.bandcamp.com/" target="_blank">Light Item</a>, 2019`,
-																subdescription: `&middot; Acquista dallo <a href="https://www.fiscerprais.com/uochi/store/acchiappa/malaeducaty/" target="_blank">Store</a>`
-												}, {
-																_id: 15,
-																//thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/utla2017.jpg',
-																thumbnail: 'img/ltd_037/utla2017.jpg',
-																link: 'https://uochitoki.bandcamp.com/album/uochi-toki-live-autunno-2017',
-																title: 'Uochi Toki Live (Autunno 2017)',
-																coauthor: [],
-																description: `&rarr; Download Digitale, Autopubblicato, 2016`,
-																subdescription: `&middot; Acquista da <a href="https://uochitoki.bandcamp.com/album/uochi-toki-live-autunno-2017" target="_blank">Bandcamp</a>`
-												}, {
-																_id: 14,
-																//thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/lmrdum.jpg',
-																thumbnail: 'img/ltd_037/lmrdum.jpg',
-																link: 'https://diodrone.bandcamp.com/album/la-magia-raccontata-da-una-macchina',
-																title: 'La magia raccontata da una macchina',
-																coauthor: [],
-																description: `&rarr; Fumetto Audio, Libro in formato A4 di 200 Pagine con Sovracopertina e Mappa temporale degli eventi, disegnato da Lapis Niger (Napo), sonorizzato da Riccardo Gamondi (Rico), testi recitati da Napo. pubblicato da <a class="special" href="https://diodrone.bandcamp.com/" target="_blank">Dio Drone</a>, 2019`,
-																subdescription: `&middot; <em>Il fumetto &egrave; esaurito</em>`
-												}, {
-																_id: 13,
-																//thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/volumorama.jpg',
-																thumbnail: 'img/ltd_037/volumorama.jpg',
-																link: 'https://uochitoki.bandcamp.com/album/volumorama-split-uochi-toki-san-leo',
-																title: 'Volumorama #5',
-																coauthor: [{
-																		link: 'https://sanleo.bandcamp.com/',
-																		name: 'San Leo'
-																}],
-																description: `&rarr; Split Vinile 7", 300 copie, pubblicato da <a href="www.bloodysoundfucktory.com" target="_blank">Bloody Sound Fucktory BLOODY064</a>, 2018`,
-																subdescription: `&middot; Acquista dallo <a href="https://www.fiscerprais.com/uochi/store/acchiappa/volumorama5/" target="_blank">Store</a>`
-												}, {
-																_id: 12,
-																//thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/necroeterno.jpg',
-																thumbnail: 'img/ltd_037/necroeterno.jpg',
-																link: 'https://uochitoki.bandcamp.com/album/split-5-aka-necroeterno-cadaver-eyes',
-																title: 'Split #5 aka Necroeterno',
-																coauthors: [{
-																		link: 'https://subsoundsplitseries.bandcamp.com/',
-																		name: 'Cadaver Eyes'
-																}],
-																description: `&rarr; Vinile 12", pubblicato da <a class="special" href="https://subsoundsplitseries.bandcamp.com/" target="_blank">Subsound Split Series</a>, 2017`,
-																subdescription: '',
-												}, {
-																_id: 11,
-																thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/lv.jpg',
-																link: 'https://uochitoki.bandcamp.com/album/il-limite-valicabile',
-																title: 'Il limite valicabile',
-																coauthors: [],
-																description: `        &rarr; Doppio CD, pubblicato da
-								<a class="special" href="http://www.latempesta.org" target="_blank">La Tempesta Dischi</a>
-								, dal 10/03/2015
-`,
-																subdescription: `        &middot; Acquista <a class="special" href="mailto:info@fiscerprais.com?subject=Sito Robot dice: ordine Il limite valicabile">direttamente da loro</a><br />
-								&middot; Acquista da <a class="special" href="http://latempesta.bigcartel.com/artist/uochi-toki" target="_blank">dalla Tempesta</a>, <a class="special" href="https://uochitoki.bandcamp.com/album/il-limite-valicabile" target="_blank">Bandcamp</a>, oppure da <a class="special" href="https://itunes.apple.com/it/artist/uochi-toki/id305624454">iTunes</a>.<br />
-`
-												}, {
-																_id: 10,
-																thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/ss.jpg',
-																link: 'https://uochitoki.bandcamp.com/album/shuriken-ep-uochi-toki-surgical-beat-bros',
-																title: 'Shuriken EP',
-																coauthors: [{
-																		link: 'https://surgicalbeatbros.bandcamp.com/',
-																		name: 'Surgical Beat Bros',
-																}],
-																description: `&rarr; Vinile 12", 300 copie, pubblicato da <a class="special" href="http://corpoc.com" target="_blank">CORPOC</a>, 2014`,
-																subdescription: `&middot; Acquista <a class="special" href="mailto:info@fiscerprais.com?subject=Sito Robot dice: ordine Shuriken EP">direttamente da loro</a><br />
-&middot; Acquista da <a class="special" href="https://ccoorrppoocc.wordpress.com/2017/05/14/corpo033-surgical-beat-bros-uochi-toki-shuriken-split-12%e2%80%b3-ep/" target="_blank">CORPOC</a> o da <a class="special" href="https://uochitoki.bandcamp.com/album/shuriken-ep-uochi-toki-surgical-beat-bros" target="_blank">Bandcamp</a>`
-												}, {
-																_id: 9,
-																thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/cs.jpg',
-																link: 'http://it.wikipedia.org/wiki/Cystema_Solari',
-																title: 'Cystema Solari',
-																coauthors: [{
-																		link: 'http://nadja.bandcamp.com',
-																		name: 'Nadja'
-																}],
-																description: `&rarr; Vinile 12", 600 copie, pubblicato da <a class="special" href="http://corpoc.com" target="_blank">CORPOC</a>, 2014`,
-																subdescription: `&middot; Acquista <a class="special" href="mailto:info@fiscerprais.com?subject=Sito Robot dice: ordine Cystema Solari">direttamente da loro</a><br />
-&middot; Acquista da <a class="special" href="http://corpoc.tictail.com/product/corpo030-nadja-uochi-toki-cystema-solari-12-lp" target="_blank">CORPOC</a> o da <a class="special" href="http://uochitoki.bandcamp.com/album/cystema-solari" target="_blank">Bandcamp</a>`
-												}, {
-																_id: 8,
-																thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/mdg.jpg',
-																link: 'http://it.wikipedia.org/wiki/Macchina_da_guerra',
-																title: 'Macchina da guerra',
-																coauthors: [],
-																description: `&rarr; Vinile 12", 300 copie, autoprodotto nel 2013`,
-																subdescription: `&middot; <em>Il disco &egrave; esaurito</em><br />
-&middot; Acquista da <a class="special" href="http://uochitoki.bandcamp.com/album/macchina-da-guerra" target="_blank">Bandcamp</a>`
-												}, {
-																_id: 7,
-																thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/distopi.jpg',
-																link: 'https://uochitoki.bandcamp.com/album/distopi-ep',
-																title: 'Distopi EP',
-																coauthors: [],
-																description: `&rarr; Vinile 12" pubblicato da <a class="special" href="http://corpoc.com/" target="_blank">CORPOC</a> nel 2012</td>`,
-																subdescription: `&middot; <em>Il disco &egrave; esaurito</em><br />
-&middot; Scarica gratis da <a class="special" href="http://www.fiscerprais.com/distopi/" target="_blank">qui (attualmente non più scaricabile)</a><br /></td>`
-												}, {
-																_id: 6,
-																thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/idioti.jpg',
-																link: 'http://it.wikipedia.org/wiki/Idioti_(album)',
-																title: 'Idioti',
-																coauthors: [],
-																description: `&rarr; CD pubblicato da <a class="special" href="http://www.latempesta.org/" target="_blank">La Tempesta Dischi</a> nel 2012</td>`,
-																subdescription: `&middot; Acquista <a class="special" href="mailto:info@fiscerprais.com?subject=Sito Robot dice: ordine Idioti">direttamente da loro</a> (15&euro; spese di spedizione comprese)<br />
-&middot; Acquista <a class="special" href="http://latempesta.bigcartel.com/product/uochi-toki-idioti" target="_blank">dalla Tempesta</a> oppure da <a class="special" href="http://itunes.apple.com/it/album/idioti/id506615214" target="_blank">iTunes</a><br />`
-												}, {
-																_id: 5,
-																thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/cuoreamore.jpeg',
-																link: 'http://it.wikipedia.org/wiki/Cuore_amore_errore_disintegrazione',
-																title: 'Cuore Amore Errore Disintegrazione',
-																coauthors: [],
-																description: `&rarr; CD pubblicato da <a class="special" href="http://www.latempesta.org/" target="_blank">La Tempesta Dischi</a> nel 2010`,
-																subdescription: `&middot; Acquista <a class="special" href="mailto:info@fiscerprais.com?subject=Sito Robot dice: ordine Cuore Amore Errore Disintegrazione">direttamente da loro</a> (15&euro; spese di spedizione comprese)<br />
-&middot; Acquista <a class="special" href="http://latempesta.bigcartel.com/product/uochi-toki-cuore-amore-errore-disintegrazione" target="_blank">dalla Tempesta</a>, da <a class="special" href="https://uochitoki.bandcamp.com/album/cuore-amore-errore-disintegrazione" target="_blank">Bandcamp</a> oppure da <a class="special" href="http://itunes.apple.com/it/album/cuore-amore-errore-disintegrazione/id386488822" target="_blank">iTunes</a>`
-												}, {
-																_id: 4,
-																thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/libroaudio.jpeg',
-																link: 'http://it.wikipedia.org/wiki/Libro_audio_(album)',
-																title: 'Libro Audio',
-																coauthors: [],
-																description: `&rarr; CD pubblicato da <a class="special" href="http://www.latempesta.org/" target="_blank">La Tempesta Dischi</a> nel 2009`,
-																subdescription: `&middot; <em>Il disco &egrave; esaurito</em><br />
-&middot; Acquista da <a class="special" href="http://itunes.apple.com/it/album/libro-audio/id305624453" target="_blank">iTunes</a><br />`
-												}, {
-																_id: 3,
-																thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/chiave.jpeg',
-																link: 'http://it.wikipedia.org/wiki/La_chiave_del_20',
-																title: 'La chiave del 20',
-																coauthors: [{
-																		link: 'http://www.myspace.com/eterea',
-																		name: 'Eterea'
-																}],
-																description: `&rarr; CD pubblicato da <a class="special" href="http://www.wallacerecords.com/" target="_blank">Wallace</a> nel 2007`,
-																subdescription: `&middot; <em>Il disco &egrave; esaurito</em><br />
-&middot; Acquista da <a href="https://uochitoki.bandcamp.com/album/la-chiave-del-20" target="_blank">Bandcamp</a><br />`
-												}, {
-																_id: 2,
-																thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/lazebiose.jpeg',
-																link: 'http://it.wikipedia.org/wiki/Laze_Biose_(album)',
-																title: 'Laze Biose',
-																coauthors: [],
-																description: `&rarr; CD pubblicato da <a class="special" href="http://www.burpenterprise.com/burp/" target="_blank">Burp Enterprise</a> nel 2006`,
-																subdescription: `&middot; <em>Il disco &egrave; esaurito</em><br />
-&middot; Acquista da <a href="https://uochitoki.bandcamp.com/album/laze-biose" target="_blank">Bandcamp</a>`
-												}, {
-																_id: 1,
-																thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/uochitoki.jpeg',
-																link: 'http://it.wikipedia.org/wiki/Uochi_Toki_(album)',
-																title: 'Uochi Toki',
-																coauthors: [],
-																description: `&rarr; CD pubblicato da <a class="special" href="http://www.burpenterprise.com/burp/" target="_blank">Burp Enterprise</a> nel 2005 (ristampa 2009)`,
-																subdescription: `&middot; <em>Il disco &egrave; esaurito</em>`
-												}, {
-																_id: 0,
-																thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/vocapatch.jpeg',
-																link: 'http://it.wikipedia.org/wiki/Vocapatch',
-																title: 'Vocapatch',
-																coauthors: [],
-																description: `&rarr; CD pubblicato da <a class="special" href="http://www.burpenterprise.com/burp/" target="_blank">Burp Enterprise</a> nel 2003`,
-																subdescription: `&middot; <em>Il disco &egrave; esaurito</em><br />
-&middot; Acquista da <a class="special" href="http://uochitoki.bandcamp.com/album/vocapatch" target="_blank">Bandcamp</a> o da <a class="special" href="https://itunes.apple.com/it/album/vocapatch/id528791249" target="_blank">iTunes</a><br />`
-												}
-										]
+			    /*googleHandler: function (entries) {
+				console.log(entries);
+				var $doc = new DOMParser().parseFromString(entries.body, "text/html");
+				var a_list = $('a', $doc.querySelector('body div #center_col'));
+				var fetched = '<div class="google_results">';
+				[].forEach.call(a_list, function(a) {
+				    console.log(a);
+				    if (a.href.startsWith('http') && !a.href.startsWith('https://www.google') && !a.href.includes('/search')) {
+					let entry = a.children[0].children[0].children;
+					if (entry.length == 1) {
+					    var source = a.children[0].children[1].children[0].textContent;
+					    var title = a.children[0].children[1].children[1].textContent
+					    var description = a.children[0].children[1].children[2].textContent;
+					}
+					else {
+					    var source = entry[0].textContent;
+					    var title = entry[1].innerText;
+					    var description = entry[2].innerHTML;
+					}
+					fetched += (
+					    '<a href="' + a.href + '" target="_blank">'
+						+ '<h3 class="google_title">' + title + '</h3>'
+						+ '</a>'
+						+ '<div class="google_source">' + source + '</div>'
+						+ '<div class="google_description">' + description + '</div>'
+					);
+				    }
+				})
+				return fetched;
+			    },*/
+		    flickrHandler: function (entry) {
+				entry.content = entry.content.replace('<p><a href=\"https://www.flickr.com/people/lapisniger/\">LapisNiger x y z t</a> ha postato una foto:</p>', '');
+				return entry;
+		    },
+		    instagramHandler: function (entry) {
+				entry.content = entry.content.replace(/<img src="https:\/\/scontent/g, '<img class="instagram-content" onclick="window.open(this.src)" src="https://scontent');
+			    let image_length = entry.content.indexOf(">");
+			    let image = entry.content.substring(0, image_length + 1);
+				if (entry.title.endsWith('...')) {
+				    let last_space_index = entry.title.lastIndexOf(' ')
+				    entry.title = entry.title.substring(0, last_space_index);
+				    entry.content = entry.content.substring(image_length + 4 + last_space_index) + image;
+				}else{
+					entry.content = image;
+				}
+				return entry;
+		    },
+		    youtubeHandler: function (entry) {
+				entry.content = entry.content.replace(/<img src=/g, '<a href="' + entry.link + '" target="_blank"><img class="youtube-thumbnail" src=').replace(/<\/img>/g, '</img></a>');
+				return entry;
+		    },
+		    soundcloudHandler: function (entry) {
+				return entry;
+		    },
+		    biografia_handler: function (entries) {
+				entries = JSON.parse(entries.bodyText).query.pages[1443708].extract;
+				return '<pre>' + entries + '</pre>';
+		    },
+		    locusta_handler: function (entries) {
+				var $doc = new DOMParser().parseFromString(entries.bodyText, "text/html");
+				var $trs = $('tr', $doc);
+				var fetched = '<div class="locusta_last_update">' + $('.minitxt', $doc).text() + '</div>';
+				var new_year = false;
+				[].forEach.call($trs, function (tr, row_index) {
+				    if (row_index === 0) {
+					return;
+				    }
+				    [].forEach.call(tr.children, function(td, index) {
+					switch (index) {
+					case 0:
+					    var day = parseInt(td.innerText.split('.')[0]);
+					    var month = parseInt(td.innerText.split('.')[1]);
+					    var current_date = new Date();
+					    var current_month = current_date.getMonth() + 1;
+					    var occurred = '';
+					    if (current_month > month) {
+						occurred = ' occurred_date';
+					    }
+					    if (current_month == month) {
+						var current_day = String(new Date().getDate()).padStart(2, '0');
+						if (current_day > day) {
+						    occurred = ' occurred_date';
 						}
+					    }
+					    if (occurred == '') {
+						new_year = true;
+					    }
+					    if (new_year) {
+						occurred = '';
+					    }
+					    fetched += '<div class="locusta_event">';
+					    fetched += '<span class="locusta_date' + occurred + '" id="locusta_date_' + row_index + '">'
+						+ td.innerText + '</span>';
+					    break;
+					case 1:
+					    fetched += '<span class="locusta_city">' + td.innerText + '</span>';
+					    break;
+					case 2:
+					    fetched += td.innerText != '' ? '(<span class="locusta_province">' + td.innerText + '</span>)<br/>' : '<br/>';
+					    break;
+					case 3:
+					    fetched += '<span>' + td.innerText + '</span>';
+					    break;
+					case 4:
+					    fetched += '</div>';
+					    break;
+					default:
+					    ;
+					};
+				    });
 				});
-				</script>
+				return '<div class="locusta_events">' + fetched + "</div>";
+		    },
+		    locusta_scroll: function () {
+				if (document.querySelectorAll('.locusta_date:not(.occurred_date)')[0] !== undefined) {
+				    var offset = document.querySelectorAll('.locusta_date:not(.occurred_date)')[0].parentNode.offsetTop;
+				    var parent = document.querySelector('#card-Concerti');
+				    var innerParentOffset = document.querySelector('.locusta_events').parentNode.offsetTop;
+				    offset -= innerParentOffset;
+				    parent.scrollTop = offset;
+				}
+	    }
+	},
+	mounted: function () {
+	    document.getElementById('toggle').addEventListener('click', function (e) {
+		document.getElementById('tuckedMenu').classList.toggle('custom-menu-tucked');
+		document.getElementById('toggle').classList.toggle('x');
+		for (let link of document.getElementsByClassName('pure-menu-link')) {
+		    link.classList.toggle('nav-hidden');
+		}
+	    });
+	},
+	data: {
+	    message: 'Hello Vue!',
+	    modals: {
+		'robot': {
+		    _id: 0, id: 'robot', title: '', label: '<img src="http://www.fiscerprais.com/uochi/css/header_small.gif"></img>', body: '<img src="http://www.fiscerprais.com/uochi/css/robot_small.jpg"></img>'},
+		'disclaimer': {
+		    _id: 1, id: 'disclaimer', title: 'Disclaimer', label: 'Informazioni & disclaimer', body: 'Questo sito &egrave; un aggregatore di risorse web sugli Uochi Toki pubblicate a scopo informativo.<br />\nIl materiale utilizzato come fonte è disponibile pubblicamente nel web e qui riprodotto solo parzialmente o in modo degradato (titoli o incipit di post, miniature a bassa risoluzione di immagini, ecc). I contenuti sono recuperati e pubblicati automaticamente, senza controllo umano, in un\'unica pagina web. <br />\nIl materiale &egrave; ricercato nel web attraverso feed RSS, alcuni dei quali resi già disponibili da social network, motori di ricerca, blog, ecc.<br />\nI materiali pubblicati sono di proprietà dei rispettivi autori. Il materiale provieniente da Wikipedia è pubblicato sotto licenza <a class="special" href="http://creativecommons.org/licenses/by-sa/3.0/deed.it" target="_blank">CC-BY-SA</a>. Ogni materiale pubblicato rimanda alla pagina originale di pubblicazione o all\'autore originale attraverso un link. I tooltip presenti in questo sito indicano come raggiungere le fonti originali.<br />\nTrattandosi di materiale scelto e pubblicato in automatico dal sistema non siamo responsabili del materiale pubblicato n&egrave; possiamo in ogni caso condividerne i contenuti. Per la stessa ragione non siamo responsabili del contenuto dei siti ai quali rimandano i nostri link.<br />\n<h3><strong>Cancellazione materiale</strong></h3>\nSe questo sito pubblica del materiale creato da te, materiale di tua proprietà o materiale che gestisci in licenza e vuoi che sia eliminato o modificato contatta il webmaster cliccando <a class="special" href="mailto:matteo@sicetsimpliciter.com">qui</a>.<br /><br />'
+		},
+		'faq': {
+		    _id: 2, id: 'faq', title: 'FAQ', label: 'Leggi la FAQ', body: '<div>Q &middot; <em><strong>Gli</strong></em> <span class="ut">Uochi Toki</span> <em><strong>odiano le donne? </strong></em><br />A &middot; No<br /><br />Q &middot; <em><strong>Gli</strong></em> <span class="ut">Uochi Toki</span> <em><strong>amano le donne? </strong></em><br />A &middot; No<br /><br />Q &middot; <em><strong>Gli</strong></em> <span class="ut">Uochi Toki</span> <em><strong>odiano il genere umano?</strong></em><br />A &middot; No<br /><br />Q &middot; <em><strong>Gli</strong></em> <span class="ut">Uochi Toki</span> <em><strong>amano il genere umano?</strong></em><br />A &middot;  No<br /><br />Q &middot;· <em><strong>Gli</strong></em> <span class="ut">Uochi Toki</span> <em><strong>sono di destra o di sinistra?</strong></em><br />A &middot;  No<br /><br />Q &middot; <em><strong>Gli</strong></em> <span class="ut">Uochi Toki</span> <em><strong>sono straight edge?</strong></em><br />A &middot;  No<br /><br />Q &middot; <em><strong>Gli</strong></em> <span class="ut">Uochi Toki</span> <em><strong>amano la guerra o la diplomazia?</strong></em><br />A &middot; Entrambe quando sono simulate.<br /><br />Q &middot; <em><strong>Gli</strong></em> <span class="ut">Uochi Toki</span> <em><strong>sono troppo matti?</strong></em><br />A &middot; Adesso si.<br /><br />Q &middot; <em><strong>Gli</strong></em> <span class="ut">Uochi Toki</span> <em><strong>fanno rap?</strong></em><br />A &middot; Si.<br /><br />Q &middot; <em><strong>E gli altri rappers sono daccordo?</strong></em><br />A &middot; No<br /><br />Q &middot; <em><strong>E allora gli</strong></em> <span class="ut">Uochi Toki</span> <em><strong>fanno rap o no?</strong></em><br />A &middot; No<br /><br />Q &middot; <em><strong>Come vedono la Scena </strong></em>(inserire nome di fenomeno musicale) <em><strong>gli</strong></em> <span class="ut">Uochi Toki</span>?....<br />A &middot; Bene, dai.<br /><br />Q &middot; <em><strong>Posso fare una delle domande di questa FAQ agli</strong></em> <span class="ut">Uochi Toki</span> <em><strong> chiedendo di fare i seri e rispondere per bene?</strong></em><br />A &middot; Non ce n’è motivo.<br /><br />Q &middot; <em><strong>Gli</strong></em> <span class="ut">Uochi Toki</span> usano termini difficili perchè questo li fa sentire intellettuali?....<br />A &middot; No.<br /><br />Q &middot; <em><strong>È vero che gli</strong></em> <span class="ut">Uochi Toki</span> <em><strong>si occupano di magia?</strong></em><br />A &middot; Si, da prima che fosse di moda.<br /><br />Q &middot; <em><strong>Che bisogno hanno gli</strong></em> <span class="ut">Uochi Toki</span> <em><strong>di esporre questa FAQ?</strong></em><br />A &middot; Serve a limitare il fenomeno delle domande sempre uguali facendo intendere che ci piacerebbe avere interlocutori più svegli.<br /><br />Q &middot; <em><strong>Ascoltare gli</strong></em> <span class="ut">Uochi Toki</span> <em><strong>mi fa credere di essere più intelligente?</strong></em><br />A &middot; Si.<br /><br />Q &middot; <em><strong>Ascoltare gli</strong></em> <span class="ut">Uochi Toki</span> <em><strong>mi fa essere più intelligente?</strong></em><br />A &middot; No.<br /><br />Q &middot; <em><strong>Nell\'ultimo disco gli </strong></em> <span class="ut">Uochi Toki</span> <em><strong>sono diventati più</strong></em> (inserire giudizio di valore che serve a dimostrare che anche voi avete una opinione sulle cose e quindi una personalità)<em>?</em><br />A &middot; In una certa misura...<br /><br />Q &middot; <em><strong>Rico registra i gruppi?</strong></em><br />A &middot; <a class="special" href="http://www.msplinks.com/MDFodHRwOi8vd3d3LmZpc2NlcnByYWlzLmNvbQ==" target="_blank">Si.</a><br /><br />Q &middot; <em><strong>Napo disegna?</strong></em><br />A &middot; <a class="special" href="http://www.msplinks.com/MDFodHRwOi8vd3d3LmZsaWNrci5jb20vcGhvdG9zL2xhcGlzbmlnZXI=" target="_blank">Si.</a><br /><br />Q &middot; <em><strong>Gli </strong></em> <span class="ut">Uochi Toki</span> <em><strong>non hanno una biografia classica che inizia con “Gli</strong></em> <span class="ut">Uochi Toki</span><em><strong> nascono nel...” perchè vogliono fare i diversi?</strong></em><br />A &middot; No, è che Napo non è in grado di riassumere quando scrive, quindi ha tentato l\'impresa titanica di scrivere una biografia che descrivesse OGNI SECONDO della vita degli <span class="ut">Uochi Toki</span> <em><strong>però sorgevano problemi irrisolvibili, quindi ha rinunciato.</strong></em></span><br /><br /></div>'
+		},
+		'contacts': {
+		    _id: 3, id: 'contacts', title: '', label: 'Contatti & Crediti', body: '<h1>Contatti</h1><hr /><table width="490" border="0" cellspacing="0" cellpadding="0">  <tr>    <td valign="middle" height="36"><a href="http://www.latempesta.org" target="_blank"><img src="http://www.fiscerprais.com/uochi/css/tempesta_logo_2012.png"></a></td>    <td valign="middle">Label <strong>La Tempesta Dischi</strong> <a class="special" href="http://www.latempesta.org" target="_blank">www.latempesta.org</a></td>  </tr>  <tr>    <td valign="middle" height="36"><a href="http://www.venusdischi.com" target="_blank"><img src="http://www.fiscerprais.com/uochi/css/venus_logo_2012.png"></a></td>    <td valign="middle">Distribuzione <strong>Venus</strong> <a class="special" href="http://www.venusdischi.com" target="_blank">www.venusdischi.com</a></td>  </tr>  <tr>    <td valign="middle" height="36"><a href="http://itunes.apple.com/it/artist/uochi-toki/id305624454" target="_blank"><img src="http://www.fiscerprais.com/uochi/css/apple_logo_2012.png"></a></td>    <td valign="middle">Download <strong>iTunes</strong> <a class="special" href="http://itunes.apple.com/it/artist/uochi-toki/id305624454" target="_blank">Tutti i dischi presenti nello store</a></td>  </tr>  <tr>    <td valign="middle" height="36"><a href="http://www.locusta.net" target="_blank"><img src="http://www.fiscerprais.com/uochi/css/locusta_logo_2012.png"></a></td>    <td valign="middle">Booking <strong>Locusta </strong> <a class="special" href="mailto:luca@locusta.net">Email Luca/Locusta</a></td>  </tr>	  <tr>    <td valign="middle" height="36"><a href="http://www.pitbellula.com" target="_blank"><img src="http://www.fiscerprais.com/uochi/css/pitbellula_logo.png"></a></td>    <td valign="middle">Ufficio stampa <strong>Pitbellula</strong> <a class="special" href="mailto:rossana@pitbellula.com">Email Rossana/Pitbellula</a></td>  </tr>  </table> <hr />    <table width="490" border="0" cellspacing="0" cellpadding="0">  <tr>    <td valign="middle" height="36">Lo studio di Rico <strong>Fiscerprais</strong> <a class="special" href="http://www.fiscerprais.com" target="_blank">www.fiscerprais.com</a> oppure <a class="special" href="mailto:info@fiscerprais.com">email Rico</a></td>  </tr>  <tr>    <td valign="middle" height="36">I disegni di Napo <strong>LapisNiger x y z t</strong> <a class="special" href="http://www.flickr.com/photos/lapisniger" target="_blank">www.flickr.com/photos/lapisniger</a></td>  </tr>    </table>       <h1>Crediti</h1><hr />    <table width="490" border="0" cellspacing="0" cellpadding="0">   <tr>    <td valign="middle" height="36">Sito realizzato da Matteo Cellerino <strong>sic&amp;simpliciter</strong> <a class="special" href="http://www.sicetsimpliciter.com" target="_blank">www.sicetsimpliciter.com</a>. Rimodernato da <a href="https://github.com/CastixGitHub">Castix</a></td>  </tr></table><br /><h1>Codice</h1><hr />    <table width="490" border="0" cellspacing="0" cellpadding="0">   <tr>    <td valign="middle" height="36">Il codice sorgente del sito è disponibile <a href="https://github.com/CastixGitHub/uochitoki-website" target="_blank">qui</a>. È di pubblico dominio.</tr></table><br /></div>'
+		}
+		    
+	    },
+	    boxes: {
+		'Disegni': {
+		    _id: 0, id: 'Disegni', title: 'Disegni'
+		},
+		'Estratti Audio': {
+		    _id: 1, id: 'Audio', title: 'Estratti Audio'
+		},
+		'Video': {
+		    _id: 2, id: 'Video', title: 'Video'
+		},
+		'Concerti': {
+		    _id: 3, id: 'Concerti', title: 'Concerti'
+		},
+		'Biografia': {
+		    _id: 4, id: 'Biografia', title: 'Biografia'
+		},
+		'Discografia': {
+		    _id: 5, id: 'Discografia', title: 'Discografia'
+		},
+		'Contatti': {
+		    _id: 6, id: 'Contatti', title: 'Contatti'
+		},
+		'Diretta': {
+		    _id: 6, id: 'Diretta', title: 'Diretta'
+		},
+		'Radio': {
+		    _id: 7, id: 'Radio', title: 'Radio Merda Malata'
+		},
+		'Mailchimp': {
+		    _id: 8, id: 'Mailchimp', title: 'Mailing List'
+		}
+	    },
+	    discs: [
+		{
+		    _id: 16,
+		    //thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/malaeducaty.jpg',
+		    thumbnail: 'img/ltd_037/malaeducaty.jpg',
+		    link: 'https://www.fiscerprais.com/uochi/store/acchiappa/malaeducaty/',
+		    title: 'Malæducaty',
+		    coauthor: [],
+		    description: `&rarr; CDr + Download Digitale, Pubblicato da <a href="https://lightitem.bandcamp.com/" target="_blank">Light Item</a>, 2019`,
+		    subdescription: `&middot; Acquista dallo <a href="https://www.fiscerprais.com/uochi/store/acchiappa/malaeducaty/" target="_blank">Store</a>`
+		}, {
+		    _id: 15,
+		    //thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/utla2017.jpg',
+		    thumbnail: 'img/ltd_037/utla2017.jpg',
+		    link: 'https://uochitoki.bandcamp.com/album/uochi-toki-live-autunno-2017',
+		    title: 'Uochi Toki Live (Autunno 2017)',
+		    coauthor: [],
+		    description: `&rarr; Download Digitale, Autopubblicato, 2016`,
+		    subdescription: `&middot; Acquista da <a href="https://uochitoki.bandcamp.com/album/uochi-toki-live-autunno-2017" target="_blank">Bandcamp</a>`
+		}, {
+		    _id: 14,
+		    //thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/lmrdum.jpg',
+		    thumbnail: 'img/ltd_037/lmrdum.jpg',
+		    link: 'https://diodrone.bandcamp.com/album/la-magia-raccontata-da-una-macchina',
+		    title: 'La magia raccontata da una macchina',
+		    coauthor: [],
+		    description: `&rarr; Fumetto Audio, Libro in formato A4 di 200 Pagine con Sovracopertina e Mappa temporale degli eventi, disegnato da Lapis Niger (Napo), sonorizzato da Riccardo Gamondi (Rico), testi recitati da Napo. pubblicato da <a class="special" href="https://diodrone.bandcamp.com/" target="_blank">Dio Drone</a>, 2019`,
+		    subdescription: `&middot; <em>Il fumetto &egrave; esaurito</em>`
+		}, {
+		    _id: 13,
+		    //thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/volumorama.jpg',
+		    thumbnail: 'img/ltd_037/volumorama.jpg',
+		    link: 'https://uochitoki.bandcamp.com/album/volumorama-split-uochi-toki-san-leo',
+		    title: 'Volumorama #5',
+		    coauthor: [{
+			link: 'https://sanleo.bandcamp.com/',
+			name: 'San Leo'
+		    }],
+		    description: `&rarr; Split Vinile 7", 300 copie, pubblicato da <a href="www.bloodysoundfucktory.com" target="_blank">Bloody Sound Fucktory BLOODY064</a>, 2018`,
+		    subdescription: `&middot; Acquista dallo <a href="https://www.fiscerprais.com/uochi/store/acchiappa/volumorama5/" target="_blank">Store</a>`
+		}, {
+		    _id: 12,
+		    //thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/necroeterno.jpg',
+		    thumbnail: 'img/ltd_037/necroeterno.jpg',
+		    link: 'https://uochitoki.bandcamp.com/album/split-5-aka-necroeterno-cadaver-eyes',
+		    title: 'Split #5 aka Necroeterno',
+		    coauthors: [{
+			link: 'https://subsoundsplitseries.bandcamp.com/',
+			name: 'Cadaver Eyes'
+		    }],
+		    description: `&rarr; Vinile 12", pubblicato da <a class="special" href="https://subsoundsplitseries.bandcamp.com/" target="_blank">Subsound Split Series</a>, 2017`,
+		    subdescription: '',
+		}, {
+		    _id: 11,
+		    thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/lv.jpg',
+		    link: 'https://uochitoki.bandcamp.com/album/il-limite-valicabile',
+		    title: 'Il limite valicabile',
+		    coauthors: [],
+		    description: `        &rarr; Doppio CD, pubblicato da
+        <a class="special" href="http://www.latempesta.org" target="_blank">La Tempesta Dischi</a>
+        , dal 10/03/2015
+`,
+		    subdescription: `        &middot; Acquista <a class="special" href="mailto:info@fiscerprais.com?subject=Sito Robot dice: ordine Il limite valicabile">direttamente da loro</a><br />
+        &middot; Acquista da <a class="special" href="http://latempesta.bigcartel.com/artist/uochi-toki" target="_blank">dalla Tempesta</a>, <a class="special" href="https://uochitoki.bandcamp.com/album/il-limite-valicabile" target="_blank">Bandcamp</a>, oppure da <a class="special" href="https://itunes.apple.com/it/artist/uochi-toki/id305624454">iTunes</a>.<br />
+`
+		}, {
+		    _id: 10,
+		    thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/ss.jpg',
+		    link: 'https://uochitoki.bandcamp.com/album/shuriken-ep-uochi-toki-surgical-beat-bros',
+		    title: 'Shuriken EP',
+		    coauthors: [{
+			link: 'https://surgicalbeatbros.bandcamp.com/',
+			name: 'Surgical Beat Bros',
+		    }],
+		    description: `&rarr; Vinile 12", 300 copie, pubblicato da <a class="special" href="http://corpoc.com" target="_blank">CORPOC</a>, 2014`,
+		    subdescription: `&middot; Acquista <a class="special" href="mailto:info@fiscerprais.com?subject=Sito Robot dice: ordine Shuriken EP">direttamente da loro</a><br />
+&middot; Acquista da <a class="special" href="https://ccoorrppoocc.wordpress.com/2017/05/14/corpo033-surgical-beat-bros-uochi-toki-shuriken-split-12%e2%80%b3-ep/" target="_blank">CORPOC</a> o da <a class="special" href="https://uochitoki.bandcamp.com/album/shuriken-ep-uochi-toki-surgical-beat-bros" target="_blank">Bandcamp</a>`
+		}, {
+		    _id: 9,
+		    thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/cs.jpg',
+		    link: 'http://it.wikipedia.org/wiki/Cystema_Solari',
+		    title: 'Cystema Solari',
+		    coauthors: [{
+			link: 'http://nadja.bandcamp.com',
+			name: 'Nadja'
+		    }],
+		    description: `&rarr; Vinile 12", 600 copie, pubblicato da <a class="special" href="http://corpoc.com" target="_blank">CORPOC</a>, 2014`,
+		    subdescription: `&middot; Acquista <a class="special" href="mailto:info@fiscerprais.com?subject=Sito Robot dice: ordine Cystema Solari">direttamente da loro</a><br />
+&middot; Acquista da <a class="special" href="http://corpoc.tictail.com/product/corpo030-nadja-uochi-toki-cystema-solari-12-lp" target="_blank">CORPOC</a> o da <a class="special" href="http://uochitoki.bandcamp.com/album/cystema-solari" target="_blank">Bandcamp</a>`
+		}, {
+		    _id: 8,
+		    thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/mdg.jpg',
+		    link: 'http://it.wikipedia.org/wiki/Macchina_da_guerra',
+		    title: 'Macchina da guerra',
+		    coauthors: [],
+		    description: `&rarr; Vinile 12", 300 copie, autoprodotto nel 2013`,
+		    subdescription: `&middot; <em>Il disco &egrave; esaurito</em><br />
+&middot; Acquista da <a class="special" href="http://uochitoki.bandcamp.com/album/macchina-da-guerra" target="_blank">Bandcamp</a>`
+		}, {
+		    _id: 7,
+		    thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/distopi.jpg',
+		    link: 'https://uochitoki.bandcamp.com/album/distopi-ep',
+		    title: 'Distopi EP',
+		    coauthors: [],
+		    description: `&rarr; Vinile 12" pubblicato da <a class="special" href="http://corpoc.com/" target="_blank">CORPOC</a> nel 2012</td>`,
+		    subdescription: `&middot; <em>Il disco &egrave; esaurito</em><br />
+&middot; Scarica gratis da <a class="special" href="http://www.fiscerprais.com/distopi/" target="_blank">qui (attualmente non più scaricabile)</a><br /></td>`
+		}, {
+		    _id: 6,
+		    thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/idioti.jpg',
+		    link: 'http://it.wikipedia.org/wiki/Idioti_(album)',
+		    title: 'Idioti',
+		    coauthors: [],
+		    description: `&rarr; CD pubblicato da <a class="special" href="http://www.latempesta.org/" target="_blank">La Tempesta Dischi</a> nel 2012</td>`,
+		    subdescription: `&middot; Acquista <a class="special" href="mailto:info@fiscerprais.com?subject=Sito Robot dice: ordine Idioti">direttamente da loro</a> (15&euro; spese di spedizione comprese)<br />
+&middot; Acquista <a class="special" href="http://latempesta.bigcartel.com/product/uochi-toki-idioti" target="_blank">dalla Tempesta</a> oppure da <a class="special" href="http://itunes.apple.com/it/album/idioti/id506615214" target="_blank">iTunes</a><br />`
+		}, {
+		    _id: 5,
+		    thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/cuoreamore.jpeg',
+		    link: 'http://it.wikipedia.org/wiki/Cuore_amore_errore_disintegrazione',
+		    title: 'Cuore Amore Errore Disintegrazione',
+		    coauthors: [],
+		    description: `&rarr; CD pubblicato da <a class="special" href="http://www.latempesta.org/" target="_blank">La Tempesta Dischi</a> nel 2010`,
+		    subdescription: `&middot; Acquista <a class="special" href="mailto:info@fiscerprais.com?subject=Sito Robot dice: ordine Cuore Amore Errore Disintegrazione">direttamente da loro</a> (15&euro; spese di spedizione comprese)<br />
+&middot; Acquista <a class="special" href="http://latempesta.bigcartel.com/product/uochi-toki-cuore-amore-errore-disintegrazione" target="_blank">dalla Tempesta</a>, da <a class="special" href="https://uochitoki.bandcamp.com/album/cuore-amore-errore-disintegrazione" target="_blank">Bandcamp</a> oppure da <a class="special" href="http://itunes.apple.com/it/album/cuore-amore-errore-disintegrazione/id386488822" target="_blank">iTunes</a>`
+		}, {
+		    _id: 4,
+		    thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/libroaudio.jpeg',
+		    link: 'http://it.wikipedia.org/wiki/Libro_audio_(album)',
+		    title: 'Libro Audio',
+		    coauthors: [],
+		    description: `&rarr; CD pubblicato da <a class="special" href="http://www.latempesta.org/" target="_blank">La Tempesta Dischi</a> nel 2009`,
+		    subdescription: `&middot; <em>Il disco &egrave; esaurito</em><br />
+&middot; Acquista da <a class="special" href="http://itunes.apple.com/it/album/libro-audio/id305624453" target="_blank">iTunes</a><br />`
+		}, {
+		    _id: 3,
+		    thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/chiave.jpeg',
+		    link: 'http://it.wikipedia.org/wiki/La_chiave_del_20',
+		    title: 'La chiave del 20',
+		    coauthors: [{
+			link: 'http://www.myspace.com/eterea',
+			name: 'Eterea'
+		    }],
+		    description: `&rarr; CD pubblicato da <a class="special" href="http://www.wallacerecords.com/" target="_blank">Wallace</a> nel 2007`,
+		    subdescription: `&middot; <em>Il disco &egrave; esaurito</em><br />
+&middot; Acquista da <a href="https://uochitoki.bandcamp.com/album/la-chiave-del-20" target="_blank">Bandcamp</a><br />`
+		}, {
+		    _id: 2,
+		    thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/lazebiose.jpeg',
+		    link: 'http://it.wikipedia.org/wiki/Laze_Biose_(album)',
+		    title: 'Laze Biose',
+		    coauthors: [],
+		    description: `&rarr; CD pubblicato da <a class="special" href="http://www.burpenterprise.com/burp/" target="_blank">Burp Enterprise</a> nel 2006`,
+		    subdescription: `&middot; <em>Il disco &egrave; esaurito</em><br />
+&middot; Acquista da <a href="https://uochitoki.bandcamp.com/album/laze-biose" target="_blank">Bandcamp</a>`
+		}, {
+		    _id: 1,
+		    thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/uochitoki.jpeg',
+		    link: 'http://it.wikipedia.org/wiki/Uochi_Toki_(album)',
+		    title: 'Uochi Toki',
+		    coauthors: [],
+		    description: `&rarr; CD pubblicato da <a class="special" href="http://www.burpenterprise.com/burp/" target="_blank">Burp Enterprise</a> nel 2005 (ristampa 2009)`,
+		    subdescription: `&middot; <em>Il disco &egrave; esaurito</em>`
+		}, {
+		    _id: 0,
+		    thumbnail: 'http://www.fiscerprais.com/uochi/ltd_037/vocapatch.jpeg',
+		    link: 'http://it.wikipedia.org/wiki/Vocapatch',
+		    title: 'Vocapatch',
+		    coauthors: [],
+		    description: `&rarr; CD pubblicato da <a class="special" href="http://www.burpenterprise.com/burp/" target="_blank">Burp Enterprise</a> nel 2003`,
+		    subdescription: `&middot; <em>Il disco &egrave; esaurito</em><br />
+&middot; Acquista da <a class="special" href="http://uochitoki.bandcamp.com/album/vocapatch" target="_blank">Bandcamp</a> o da <a class="special" href="https://itunes.apple.com/it/album/vocapatch/id528791249" target="_blank">iTunes</a><br />`
+		}
+	    ]
+	}
+    });
+    </script>
 </html>
