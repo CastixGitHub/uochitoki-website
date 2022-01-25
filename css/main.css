@@ -48,6 +48,10 @@ html, body {
     display: inline-block;
 }
 
+#card-Disegni img {
+  max-width: 100%;
+}
+
 #card-Audio {
     height: 60vh;
 }
